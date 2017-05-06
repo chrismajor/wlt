@@ -18,15 +18,18 @@ TODO
 		PreparedStatements & JPA?
 		Hibernate?
 	logging
+	mapping framework
 
 nice 2 have
 	bootstrap
     AWS
     gradle wrapper
-		
+	cloud mysql
+
 Tables
 	user
 	user-role
+	role
 	security
 	person
 	address
