@@ -1,3 +1,4 @@
+// initialise the build environment
 buildscript {
     repositories {
         mavenCentral()
@@ -7,28 +8,31 @@ buildscript {
     }
 }
 
+// apply plugins
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 // apply plugin: 'jacoco'
 
+// fundamental build settings
+defaultTasks 'build'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// configure jar settings
 jar {
     baseName = 'wlt-demo'
     version =  '0.1.0'
 }
 
+// define Maven repo(s)
 repositories {
     mavenCentral()
 }
 
-defaultTasks 'build'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
+// define dependencies
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-//    compile("org.springframework.boot:spring-boot-devtools")
 	// bcrypt
 	// owasp esapi
     // log4j
