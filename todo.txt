@@ -1,0 +1,34 @@
+Resources
+    https://spring.io/guides/gs/serving-web-content/
+	https://spring.io/guides/gs/securing-web/
+	https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-normal-controllers/
+	
+	
+
+TODO
+	encrypt passwords
+		salt with timestamp?
+		hash with bcrypt
+	unit tests for MVC controllers
+	implement code coverage tests (jacoco?)
+	DB scripts for structure
+		include provisioning an initial admin user
+	OWASP ESAPI for input validation etc
+	persistence:
+		PreparedStatements & JPA?
+		Hibernate?
+	logging
+
+nice 2 have
+	bootstrap
+    AWS
+    gradle wrapper
+		
+Tables
+	user
+	user-role
+	security
+	person
+	address
+	product
+	productlist?

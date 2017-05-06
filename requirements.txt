@@ -1,0 +1,13 @@
+• Register a user account with details like name, email (username), password, DOB and address.
+• Use server side validation to stipulate that each are mandatory
+• Login using registered account details
+• Build a product form with attributes of name, description, price and implement CRUD + List operations.
+• Create roles standard and super user.
+• Only “Super users” are allowed to delete a product
+• Provide custom error pages for 404, 403 and 500 status codes
+• Use any open source DB like MySQL or PostgreSQL as the back end
+
+They will be looking for:
+• How domain models are defined how the code is modularised
+• how any frameworks and patterns (like MVC, DI, ORM or JDBC and unit tests) have been used to build the website
+• the build tools that were used
