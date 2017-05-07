@@ -3,6 +3,7 @@ package io.chrismajor.wlt.repository;
 import io.chrismajor.wlt.domain.ProductEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,16 +12,9 @@ import java.util.List;
  */
 public interface ProductRepository extends CrudRepository<ProductEntity, Long> {
 
-    // TODO: implement these
     @Query(value = "from ProductEntity where deletedDatetime is null")
     List<ProductEntity> getProducts();
 
-//    ProductEntity getProductByRef(String ref);
-
-    // TODO: delete these?
-//    boolean updateProduct(ProductEntity product);
-
-//    ProductEntity createProduct(ProductEntity product);
-
-//    boolean deleteProduct(ProductEntity product);
+    @Query(value = "from ProductEntity where ref = ?1")
+    ProductEntity getProductByRef(String ref);
 }
