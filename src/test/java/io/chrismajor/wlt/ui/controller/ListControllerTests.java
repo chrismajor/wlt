@@ -146,23 +146,78 @@ public class ListControllerTests {
     }
 
     /** POST /list/product/update */
-    public void updateNewProduct() throws Exception {
-
+    @Test
+    public void updateProduct() throws Exception {
+        this.mockMvc.perform(post("/list/product/update")
+                .param("name", "Hat")
+                .param("description", "fancy top hat")
+                .param("price", "1000")
+                .param("ref","aaa"))
+                .andExpect(model().attributeHasNoErrors("product"))
+                .andExpect(status().isOk());
     }
 
     /** POST /list/product/update */
-    public void updateNewProduct_missingDetails() throws Exception {
-
+    @Test
+    public void updateProduct_missingDetails() throws Exception {
+        this.mockMvc.perform(post("/list/product/update"))
+                .andExpect(model().attributeHasErrors("product"));
     }
 
     /** POST /list/product/update */
-    public void updateNewProduct_invalidDetails() throws Exception {
+    @Test
+    public void updateProduct_invalidDetails1() throws Exception {
+        this.mockMvc.perform(post("/list/product/update")
+                .param("name", "Hat")
+                .param("description", "fancy top hat")
+                .param("price", "NaN")
+                .param("ref","aaa"))
+                .andExpect(model().attributeHasErrors("product"));
+    }
 
+    /** POST /list/product/update */
+    @Test
+    public void updateProduct_invalidDetails2() throws Exception {
+        this.mockMvc.perform(post("/list/product/update")
+                .param("name", "Hat")
+                .param("description", "")
+                .param("price", "100")
+                .param("ref","aaa"))
+                .andExpect(model().attributeHasErrors("product"));
+    }
+
+    /** POST /list/product/update */
+    @Test
+    public void updateProduct_invalidDetails3() throws Exception {
+        this.mockMvc.perform(post("/list/product/update")
+                .param("name", "")
+                .param("description", "fancy top hat")
+                .param("price", "100")
+                .param("ref","aaa"))
+                .andExpect(model().attributeHasErrors("product"));
+    }
+
+    /** POST /list/product/update */
+    @Test
+    public void updateProduct_invalidDetails4() throws Exception {
+        this.mockMvc.perform(post("/list/product/update")
+                .param("name", "Hat")
+                .param("description", "fancy top hat")
+                .param("price", "100")
+                .param("ref",""))
+                .andExpect(model().attributeHasErrors("product"));
     }
 
     /** POST /list/product/delete */
+    @Test
     public void deleteProduct() throws Exception {
-
+        this.mockMvc.perform(post("/list/product/delete")
+                .param("name", "Hat")
+                .param("description", "fancy top hat")
+                .param("price", "1000")
+                .param("ref","aaa"))
+                .andExpect(model().attributeHasNoErrors("product"))
+                .andExpect(status().isOk());
     }
 
     /** POST /list/product/delete */

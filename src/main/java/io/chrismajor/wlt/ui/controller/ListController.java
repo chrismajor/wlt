@@ -61,6 +61,8 @@ public class ListController {
             @RequestParam(value="ref", required=true) String ref,
             Model model) {
 
+        // TODO: validate XSS for ref
+
         // get product by ref, add to the model
         Product product = service.getProduct(ref);
         model.addAttribute("product", product);
@@ -131,11 +133,8 @@ public class ListController {
     public String productDelete(@Valid Product product, BindingResult bindingResult) {
         // TODO: does the user have the right access to delete a product?
             // TODO: if yes
-                if(bindingResult.hasErrors()) {
-                    // TODO: do sutin...
-                }
-
                 boolean success = service.deleteProduct(product);
+                // TODO: if unsuccess (i.e. invalid ref), error page?
             // TODO: if no, bump user to 403 page?
 
         return "list";

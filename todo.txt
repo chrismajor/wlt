@@ -16,6 +16,7 @@ TODO
 		PreparedStatements & JPA?
 		Hibernate?
 		inheritance for audit details (updated, created) in domain objects
+    product controller / service : error handling
     users functionality!
 
 nice 2 have
