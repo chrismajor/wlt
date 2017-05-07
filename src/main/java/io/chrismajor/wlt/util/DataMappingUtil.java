@@ -3,6 +3,8 @@ package io.chrismajor.wlt.util;
 import io.chrismajor.wlt.domain.ProductEntity;
 import io.chrismajor.wlt.ui.model.Product;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -14,20 +16,36 @@ import java.util.UUID;
 public class DataMappingUtil {
     public static Product mapProductDbToUi(ProductEntity productEntity) {
         Product product = new Product();
-        product.setName(productEntity.getName());
-        product.setDescription(productEntity.getDescription());
-        product.setPrice(productEntity.getPrice());
-        product.setRef(productEntity.getRef());
+
+        if (productEntity != null) {
+            product.setName(productEntity.getName());
+            product.setDescription(productEntity.getDescription());
+            product.setPrice(productEntity.getPrice());
+            product.setRef(productEntity.getRef());
+        }
 
         return product;
     }
 
+    public static List<Product> mapProductListUiToDb(List<ProductEntity> entities) {
+        List<Product> products = new ArrayList<>();
+
+        for (ProductEntity entity : entities) {
+            products.add(DataMappingUtil.mapProductDbToUi(entity));
+        }
+
+        return products;
+    }
+
     public static ProductEntity mapProductUiToDb(Product product) {
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setName(product.getName());
-        productEntity.setDescription(product.getDescription());
-        productEntity.setPrice(product.getPrice());
-        productEntity.setRef(product.getRef());
+
+        if (product != null) {
+            productEntity.setName(product.getName());
+            productEntity.setDescription(product.getDescription());
+            productEntity.setPrice(product.getPrice());
+            productEntity.setRef(product.getRef());
+        }
 
         return productEntity;
     }

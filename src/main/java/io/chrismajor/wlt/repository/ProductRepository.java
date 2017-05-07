@@ -1,6 +1,7 @@
 package io.chrismajor.wlt.repository;
 
 import io.chrismajor.wlt.domain.ProductEntity;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<ProductEntity, Long> {
 
     // TODO: implement these
-//    List<ProductEntity> getProducts();
+    @Query(value = "from ProductEntity where deletedDatetime is null")
+    List<ProductEntity> getProducts();
 
 //    ProductEntity getProductByRef(String ref);
 

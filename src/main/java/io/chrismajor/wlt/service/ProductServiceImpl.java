@@ -25,32 +25,8 @@ public class ProductServiceImpl implements ProductService{
     ProductRepository repository;
 
     public List<Product> getProductList() {
-        List<Product> list = new ArrayList<>();
-
-        // mock out the DB bit for now
-        Product product1 = new Product();
-        product1.setName("Hat");
-        product1.setDescription("A pretty swanky top hat");
-        product1.setPrice(new BigDecimal(1000));
-        product1.setRef("abc123");
-
-        Product product2 = new Product();
-        product2.setName("Bulldozer");
-        product2.setDescription("It's going to dig up some crazy stuff");
-        product2.setPrice(new BigDecimal(50000));
-        product2.setRef("def456");
-
-        Product product3 = new Product();
-        product3.setName("Swordfish");
-        product3.setDescription("Look at it's crazy face");
-        product3.setPrice(new BigDecimal(1000));
-        product3.setRef("abc123");
-
-        list.add(product1);
-        list.add(product2);
-        list.add(product3);
-
-        return list;
+        List<ProductEntity> entities = repository.getProducts();
+        return DataMappingUtil.mapProductListUiToDb(entities);
     }
 
 

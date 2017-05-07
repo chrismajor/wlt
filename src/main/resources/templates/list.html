@@ -6,6 +6,17 @@
 </head>
     <body>
         <h1 id="title">Product List</h1>
-        <p th:text="'Hello, ' + ${name} + '!'" />
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}">Name</td>
+                <td th:text="${product.price}">Price</td>
+                <td th:text="${product.description}">Description</td>
+            </tr>
+        </table>
     </body>
 </html>

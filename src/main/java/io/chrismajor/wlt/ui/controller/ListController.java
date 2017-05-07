@@ -88,7 +88,7 @@ public class ListController {
         boolean success = service.updateProduct(product);
 
         // if the update has been successful, return to the product list
-        return "list";
+        return "redirect:/list";
     }
 
     /**
@@ -120,7 +120,7 @@ public class ListController {
         service.createProduct(product);
 
         // on success, pass user back to the list view
-        return "list";
+        return "redirect:/list";
     }
 
     /**
@@ -136,6 +136,6 @@ public class ListController {
                 // TODO: if unsuccess (i.e. invalid ref), error page?
             // TODO: if no, bump user to 403 page?
 
-        return "list";
+        return "redirect:/list";
     }
 }
