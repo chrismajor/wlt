@@ -109,7 +109,9 @@ public class ListControllerTests {
         this.mockMvc.perform(post("/list/product/new")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
-                .param("price", "1000"))
+                .param("price", "1000")
+                .param("ref","aaa"))
+                .andExpect(model().attributeHasNoErrors("product"))
                 .andExpect(status().isOk());
     }
 
@@ -122,11 +124,22 @@ public class ListControllerTests {
 
     /** POST /list/product/new */
     @Test
-    public void saveNewProduct_invalidDetails() throws Exception {
+    public void saveNewProduct_invalidDetails1() throws Exception {
         this.mockMvc.perform(post("/list/product/new")
                 .param("name", "")
                 .param("description", "fancy top hat")
-                .param("price", "1000"))
+                .param("price", "1000")
+                .param("ref", "hhh333"))
+                .andExpect(model().attributeHasErrors("product"));
+    }
+
+    /** POST /list/product/new */
+    @Test
+    public void saveNewProduct_invalidDetails2() throws Exception {
+        this.mockMvc.perform(post("/list/product/new")
+                .param("name", "")
+                .param("description", "fancy top hat")
+                .param("price", "bananas"))
                 .andExpect(model().attributeHasErrors("product"));
 
         // TODO: flesh out more, and XSS

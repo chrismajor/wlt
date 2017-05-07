@@ -9,7 +9,6 @@ TODO
 	encrypt passwords
 		salt with timestamp?
 		hash with bcrypt
-	unit tests for MVC controllers
 	DB scripts for structure
 		include provisioning an initial admin user
 	OWASP ESAPI for input validation etc
@@ -17,13 +16,11 @@ TODO
 		PreparedStatements & JPA?
 		Hibernate?
 		inheritance for audit details (updated, created) in domain objects
-	logging to a file
-	gradle
-	    pretty unit test results
-	    implement code coverage tests (jacoco?)
-
+    users functionality!
 
 nice 2 have
+    UI: stick "ref" in the session instead hidden in the form
+    fine tune logging
 	bootstrap
     AWS
     gradle wrapper

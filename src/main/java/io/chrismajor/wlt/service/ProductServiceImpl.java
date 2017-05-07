@@ -62,6 +62,8 @@ public class ProductServiceImpl implements ProductService{
 
 
     public Product createProduct(Product product) {
+        // ensure you create a new ref for the product here
+
         return null;
     }
 

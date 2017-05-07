@@ -24,7 +24,10 @@
                 <td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</td>
             </tr>
             <tr>
-                <td><button type="submit">Update</button></td>
+                <td>
+                    <input type="hidden" th:field="*{ref}"/>
+                    <button type="submit">Submit</button>
+                </td>
             </tr>
         </table>
     </form>

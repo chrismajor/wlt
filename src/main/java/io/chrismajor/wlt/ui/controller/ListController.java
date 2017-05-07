@@ -75,8 +75,11 @@ public class ListController {
      * @return the 'list' view
      */
     @RequestMapping(value = "/list/product/update", method = RequestMethod.POST)
-    public String productUpdate(@ModelAttribute Product product) {
-        // TODO: validate product
+    public String productUpdate(@Valid Product product, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return "newproduct";
+        }
 
         // hand product off to service to be updated
         boolean success = service.updateProduct(product);
@@ -92,7 +95,11 @@ public class ListController {
      */
     @RequestMapping(value = "/list/product/new", method = RequestMethod.GET)
     public String newProduct(Model model) {
-        model.addAttribute("product", new Product());
+        Product product = new Product();
+
+        // TODO: refactor once we've got a mechanism for generating refs
+        product.setRef("new");
+        model.addAttribute("product", product);
         return "newproduct";
     }
 
