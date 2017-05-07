@@ -69,13 +69,19 @@ public class ListControllerTests {
     }
 
     /** GET  /list/product */
+    @Test
     public void listProduct() throws Exception {
+        // TODO: mockito a successful database call
 
+        this.mockMvc.perform(get("/list/product?ref=abc123")).andExpect(status().isOk())
+                .andExpect(xpath("//h1[@id='title']").exists())
+                .andExpect(xpath("//h1[@id='title']").string("Product Details"));
     }
 
     /** GET  /list/product */
+    @Test
     public void listProduct_noParam() throws Exception {
-
+        this.mockMvc.perform(get("/list/product")).andExpect(status().is4xxClientError());
     }
 
     /** GET  /list/product */

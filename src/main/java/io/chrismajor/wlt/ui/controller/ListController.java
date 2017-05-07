@@ -2,6 +2,8 @@ package io.chrismajor.wlt.ui.controller;
 
 import io.chrismajor.wlt.service.ProductService;
 import io.chrismajor.wlt.ui.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,11 @@ public class ListController {
     @Autowired
     private ProductService service;
 
+
+    // Define the logger object for this class
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+
     /**
      * List out all of the active products
      * @param model the model
@@ -33,6 +40,7 @@ public class ListController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
+        log.info("here we goooooooooooooooooo");
 
         // get all of the active products
         List<Product> products = service.getProductList();
