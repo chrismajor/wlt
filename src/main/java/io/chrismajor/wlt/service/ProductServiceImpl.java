@@ -1,10 +1,16 @@
 package io.chrismajor.wlt.service;
 
+import io.chrismajor.wlt.domain.ProductEntity;
+import io.chrismajor.wlt.repository.ProductRepository;
 import io.chrismajor.wlt.ui.model.Product;
+import io.chrismajor.wlt.util.DataMappingUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,6 +20,9 @@ import java.util.List;
  */
 @Service
 public class ProductServiceImpl implements ProductService{
+
+    @Autowired
+    ProductRepository repository;
 
     public List<Product> getProductList() {
         List<Product> list = new ArrayList<>();
@@ -61,10 +70,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
-    public Product createProduct(Product product) {
-        // ensure you create a new ref for the product here
-
-        return null;
+    public boolean createProduct(Product product) {
+        ProductEntity entity = DataMappingUtil.mapProductUiToDb(product);
+        entity.setCreatedDatetime(new Timestamp(new Date().getTime()));
+        repository.save(entity);
+        return true;
     }
 
 

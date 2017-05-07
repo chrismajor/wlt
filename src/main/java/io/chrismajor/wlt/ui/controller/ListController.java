@@ -2,6 +2,7 @@ package io.chrismajor.wlt.ui.controller;
 
 import io.chrismajor.wlt.service.ProductService;
 import io.chrismajor.wlt.ui.model.Product;
+import io.chrismajor.wlt.util.DataMappingUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,9 +99,7 @@ public class ListController {
     @RequestMapping(value = "/list/product/new", method = RequestMethod.GET)
     public String newProduct(Model model) {
         Product product = new Product();
-
-        // TODO: refactor once we've got a mechanism for generating refs
-        product.setRef("new");
+        product.setRef(DataMappingUtil.createProductRef());
         model.addAttribute("product", product);
         return "newproduct";
     }

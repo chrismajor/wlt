@@ -3,6 +3,8 @@ package io.chrismajor.wlt.util;
 import io.chrismajor.wlt.domain.ProductEntity;
 import io.chrismajor.wlt.ui.model.Product;
 
+import java.util.UUID;
+
 /**
  * Map DB beans to UI beans / UI beans to DB beans for like types.
  *
@@ -33,4 +35,8 @@ public class DataMappingUtil {
     // TODO: user DB to UI
 
     // TODO: user UI to DB
+
+    public static String createProductRef() {
+        return UUID.randomUUID().toString();
+    }
 }

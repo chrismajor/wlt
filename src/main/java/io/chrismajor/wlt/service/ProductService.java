@@ -33,7 +33,7 @@ public interface ProductService {
      * @param product details of the product we want to persist
      * @return the persisted product
      */
-    Product createProduct(Product product);
+    boolean createProduct(Product product);
 
     /**
      * Mark a product as deleted in the database
