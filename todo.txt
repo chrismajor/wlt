@@ -10,15 +10,18 @@ TODO
 		salt with timestamp?
 		hash with bcrypt
 	unit tests for MVC controllers
-	implement code coverage tests (jacoco?)
 	DB scripts for structure
 		include provisioning an initial admin user
 	OWASP ESAPI for input validation etc
 	persistence:
 		PreparedStatements & JPA?
 		Hibernate?
-	logging
-	mapping framework
+		inheritance for audit details (updated, created) in domain objects
+	logging to a file
+	gradle
+	    pretty unit test results
+	    implement code coverage tests (jacoco?)
+
 
 nice 2 have
 	bootstrap
@@ -30,7 +33,7 @@ Tables
 	user
 	user-role
 	role
-	security
+	security (e.g. passwords and login stuff)
 	person
 	address
 	product
