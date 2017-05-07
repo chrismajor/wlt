@@ -9,11 +9,8 @@ import java.util.Objects;
  * Bean to denote a product entity from the DB.
  */
 @Entity
-@Table(name = "PRODUCT")
+@Table(name = "product")
 public class ProductEntity {
-
-    /** Date & time the record was updated. TODO: should this be a Date / other? */
-    private Timestamp updatedDatetime;
 
     /** private key for the product */
     @Id
@@ -38,11 +35,17 @@ public class ProductEntity {
     /** ID of the user that created the product */
     private Long createdUserId;
 
+    /** Date & time the record was updated. TODO: should this be a Date / other? */
+    private Timestamp updatedDatetime;
+
     /** ID of the user that updated the product */
     private Long updatedUserId;
 
     /** Date & time the record was deleted. If null, hasn't been deleted yet! TODO: should this be a Date / other? */
-    private Timestamp deletedTimestamp;
+    private Timestamp deletedDatetime;
+
+    /** ID of the user that updated the product */
+    private Long deletedUserId;
 
     public Long getId() {
         return id;
@@ -92,12 +95,44 @@ public class ProductEntity {
         this.createdDatetime = createdDatetime;
     }
 
-    public Timestamp getDeletedTimestamp() {
-        return deletedTimestamp;
+    public Long getCreatedUserId() {
+        return createdUserId;
     }
 
-    public void setDeletedTimestamp(Timestamp deletedTimestamp) {
-        this.deletedTimestamp = deletedTimestamp;
+    public void setCreatedUserId(Long createdUserId) {
+        this.createdUserId = createdUserId;
+    }
+
+    public Timestamp getUpdatedDatetime() {
+        return updatedDatetime;
+    }
+
+    public void setUpdatedDatetime(Timestamp updatedDatetime) {
+        this.updatedDatetime = updatedDatetime;
+    }
+
+    public Long getUpdatedUserId() {
+        return updatedUserId;
+    }
+
+    public void setUpdatedUserId(Long updatedUserId) {
+        this.updatedUserId = updatedUserId;
+    }
+
+    public Timestamp getDeletedDatetime() {
+        return deletedDatetime;
+    }
+
+    public void setDeletedDatetime(Timestamp deletedDatetime) {
+        this.deletedDatetime = deletedDatetime;
+    }
+
+    public Long getDeletedUserId() {
+        return deletedUserId;
+    }
+
+    public void setDeletedUserId(Long deletedUserId) {
+        this.deletedUserId = deletedUserId;
     }
 
     @Override
@@ -111,11 +146,15 @@ public class ProductEntity {
                 Objects.equals(price, that.price) &&
                 Objects.equals(ref, that.ref) &&
                 Objects.equals(createdDatetime, that.createdDatetime) &&
-                Objects.equals(deletedTimestamp, that.deletedTimestamp);
+                Objects.equals(createdUserId, that.createdUserId) &&
+                Objects.equals(updatedDatetime, that.updatedDatetime) &&
+                Objects.equals(updatedUserId, that.updatedUserId) &&
+                Objects.equals(deletedDatetime, that.deletedDatetime) &&
+                Objects.equals(deletedUserId, that.deletedUserId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, price, ref, createdDatetime, deletedTimestamp);
+        return Objects.hash(id, name, description, price, ref, createdDatetime, createdUserId, updatedDatetime, updatedUserId, deletedDatetime, deletedUserId);
     }
 }
