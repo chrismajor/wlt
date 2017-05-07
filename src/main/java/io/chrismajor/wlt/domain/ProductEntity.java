@@ -2,6 +2,7 @@ package io.chrismajor.wlt.domain;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * Bean to denote a product entity from the DB.
@@ -84,5 +85,24 @@ public class ProductEntity {
 
     public void setDeletedTimestamp(Timestamp deletedTimestamp) {
         this.deletedTimestamp = deletedTimestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductEntity that = (ProductEntity) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(ref, that.ref) &&
+                Objects.equals(createdDatetime, that.createdDatetime) &&
+                Objects.equals(deletedTimestamp, that.deletedTimestamp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, price, ref, createdDatetime, deletedTimestamp);
     }
 }
