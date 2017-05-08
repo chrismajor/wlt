@@ -1,5 +1,6 @@
 package io.chrismajor.wlt.service;
 
+import io.chrismajor.wlt.exception.ProductNotFoundException;
 import io.chrismajor.wlt.ui.model.Product;
 import java.util.List;
 
@@ -19,14 +20,14 @@ public interface ProductService {
      * @param ref the product ref
      * @return the product object
      */
-    Product getProduct(String ref);
+    Product getProduct(String ref) throws ProductNotFoundException;
 
     /**
      * Update a product's details
      * @param product the product details to persist
      * @return boolean to denote the success of the operation
      */
-    boolean updateProduct(Product product);
+    void updateProduct(Product product) throws ProductNotFoundException;
 
     /**
      * Create a new product

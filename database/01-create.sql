@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS wlt.product (
     deleted_user_id INTEGER                 COMMENT 'User that deleted the product' -- TODO: foreign key
 );
 
+-- todo: index ref column
+
 -- create user
 CREATE USER 'wltapp'@'localhost' IDENTIFIED BY 'r4ttl3sn4k3s???';
 GRANT SELECT ON wlt.* TO 'wltapp'@'localhost';

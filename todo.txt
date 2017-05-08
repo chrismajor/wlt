@@ -9,14 +9,11 @@ TODO
 	encrypt passwords
 		salt with timestamp?
 		hash with bcrypt
-	DB scripts for structure
-		include provisioning an initial admin user
+	DB scripts: provisioning an initial admin user
 	OWASP ESAPI for input validation etc
-	persistence:
-		PreparedStatements & JPA?
-		Hibernate?
-		inheritance for audit details (updated, created) in domain objects
+	inheritance for audit details (updated, created) in domain objects
     product controller / service : error handling
+    make exception structure (and creation) better
     users functionality!
 
 nice 2 have

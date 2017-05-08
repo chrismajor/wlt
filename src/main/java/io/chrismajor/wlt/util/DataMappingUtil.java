@@ -14,7 +14,7 @@ import java.util.UUID;
  * If the app were to scale out at all, implement a data mapping framework like MapStruct
  */
 public class DataMappingUtil {
-    public static Product mapProductDbToUi(ProductEntity productEntity) {
+    public static Product mapNewProduct(ProductEntity productEntity) {
         Product product = new Product();
 
         if (productEntity != null) {
@@ -27,17 +27,17 @@ public class DataMappingUtil {
         return product;
     }
 
-    public static List<Product> mapProductListUiToDb(List<ProductEntity> entities) {
+    public static List<Product> mapNewProductList(List<ProductEntity> entities) {
         List<Product> products = new ArrayList<>();
 
         for (ProductEntity entity : entities) {
-            products.add(DataMappingUtil.mapProductDbToUi(entity));
+            products.add(DataMappingUtil.mapNewProduct(entity));
         }
 
         return products;
     }
 
-    public static ProductEntity mapProductUiToDb(Product product) {
+    public static ProductEntity mapNewProductEntity(Product product) {
         ProductEntity productEntity = new ProductEntity();
 
         if (product != null) {
@@ -48,6 +48,13 @@ public class DataMappingUtil {
         }
 
         return productEntity;
+    }
+
+    public static void mapProductToProductEntity(Product src, ProductEntity dest) {
+        dest.setName(src.getName());
+        dest.setDescription(src.getDescription());
+        dest.setPrice(src.getPrice());
+        dest.setRef(src.getRef());
     }
 
     // TODO: user DB to UI

@@ -37,9 +37,7 @@ dependencies {
     compile "mysql:mysql-connector-java:5.1.6"
 	// bcrypt
 	// owasp esapi
-    // log4j
     testCompile("junit:junit")
-    testCompile("org.mockito:mockito-core:2.7.22")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.springframework.security:spring-security-test")
 }

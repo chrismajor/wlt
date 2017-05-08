@@ -1,10 +1,14 @@
 package io.chrismajor.wlt.ui.controller;
 
 import io.chrismajor.wlt.Application;
+import io.chrismajor.wlt.service.ProductService;
+import io.chrismajor.wlt.ui.model.Product;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -13,8 +17,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.BDDMockito.*;
 
 /**
  * Unit tests for the ListController
@@ -30,10 +40,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
+@SpringBootTest
 @ContextHierarchy(@ContextConfiguration(classes = Application.class))
 public class ListControllerTests {
     @Autowired
     private WebApplicationContext wac;
+
+    @MockBean
+    private ProductService productService;
 
     private MockMvc mockMvc;
 
@@ -51,13 +65,35 @@ public class ListControllerTests {
     /** GET  /list */
     @Test
     public void listProducts_basic() throws Exception {
+        List<Product> products = new ArrayList<>();
+
+        Product product1 = new Product();
+        product1.setName("Hat");
+        product1.setDescription("A pretty swanky top hat");
+        product1.setPrice(new BigDecimal(1000));
+        product1.setRef("abc123");
+
+        Product product2 = new Product();
+        product2.setName("Bulldozer");
+        product2.setDescription("It's going to dig up some crazy stuff");
+        product2.setPrice(new BigDecimal(50000));
+        product2.setRef("def456");
+
+        Product product3 = new Product();
+        product3.setName("Swordfish");
+        product3.setDescription("Look at it's crazy face");
+        product3.setPrice(new BigDecimal(1000));
+        product3.setRef("abc123");
+
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
+
+        given(this.productService.getProductList()).willReturn(products);
+
         this.mockMvc.perform(get("/list")).andExpect(status().isOk())
                 .andExpect(xpath("//h1[@id='title']").exists())
                 .andExpect(xpath("//h1[@id='title']").string("Product List"));
-//        this.mockMvc.perform(get("/accounts/1").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType("application/json"))
-//                .andExpect(jsonPath("$.name").value("Lee"));
     }
 
     // TODO: list products no results
@@ -71,7 +107,15 @@ public class ListControllerTests {
     /** GET  /list/product */
     @Test
     public void listProduct() throws Exception {
-        // TODO: mockito a successful database call
+        String ref = "abc123";
+
+        Product product1 = new Product();
+        product1.setName("Hat");
+        product1.setDescription("A pretty swanky top hat");
+        product1.setPrice(new BigDecimal(1000));
+        product1.setRef(ref);
+
+        given(this.productService.getProduct(ref)).willReturn(product1);
 
         this.mockMvc.perform(get("/list/product?ref=abc123")).andExpect(status().isOk())
                 .andExpect(xpath("//h1[@id='title']").exists())
@@ -106,13 +150,22 @@ public class ListControllerTests {
     /** POST /list/product/new */
     @Test
     public void saveNewProduct() throws Exception {
+        Product product1 = new Product();
+        product1.setName("Hat");
+        product1.setDescription("A pretty swanky top hat");
+        product1.setPrice(new BigDecimal(1000));
+        product1.setRef("abc123");
+
+        given(this.productService.createProduct(product1)).willReturn(true);
+
         this.mockMvc.perform(post("/list/product/new")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
                 .param("price", "1000")
                 .param("ref","aaa"))
-                .andExpect(model().attributeHasNoErrors("product"))
-                .andExpect(status().isOk());
+                .andExpect(model().errorCount(0))
+                .andExpect(model().hasNoErrors())
+                .andExpect(status().is3xxRedirection());
     }
 
     /** POST /list/product/new */
@@ -148,13 +201,22 @@ public class ListControllerTests {
     /** POST /list/product/update */
     @Test
     public void updateProduct() throws Exception {
+        Product product1 = new Product();
+        product1.setName("Hat");
+        product1.setDescription("A pretty swanky top hat");
+        product1.setPrice(new BigDecimal(1000));
+        product1.setRef("abc123");
+
+        doNothing().when(this.productService).updateProduct(product1);
+
         this.mockMvc.perform(post("/list/product/update")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
                 .param("price", "1000")
                 .param("ref","aaa"))
-                .andExpect(model().attributeHasNoErrors("product"))
-                .andExpect(status().isOk());
+                .andExpect(model().errorCount(0))
+                .andExpect(model().hasNoErrors())
+                .andExpect(status().is3xxRedirection());
     }
 
     /** POST /list/product/update */
@@ -209,7 +271,6 @@ public class ListControllerTests {
     }
 
     /** POST /list/product/delete */
-    @Test
     public void deleteProduct() throws Exception {
         this.mockMvc.perform(post("/list/product/delete")
                 .param("name", "Hat")

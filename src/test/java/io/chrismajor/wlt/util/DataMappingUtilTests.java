@@ -29,7 +29,7 @@ public class DataMappingUtilTests {
         testEntity.setPrice(new BigDecimal(1000));
         testEntity.setRef("abc123");
 
-        ProductEntity mappedEntity = DataMappingUtil.mapProductUiToDb(originalProduct);
+        ProductEntity mappedEntity = DataMappingUtil.mapNewProductEntity(originalProduct);
         Assert.assertEquals(mappedEntity, testEntity);
     }
 
@@ -47,7 +47,7 @@ public class DataMappingUtilTests {
         testEntity.setPrice(new BigDecimal(100));
         testEntity.setRef("def456");
 
-        ProductEntity mappedEntity = DataMappingUtil.mapProductUiToDb(originalProduct);
+        ProductEntity mappedEntity = DataMappingUtil.mapNewProductEntity(originalProduct);
         Assert.assertNotEquals(mappedEntity, testEntity);
     }
 
@@ -65,7 +65,7 @@ public class DataMappingUtilTests {
         testEntity.setPrice(new BigDecimal(1000000000));
         testEntity.setRef("abc123");
 
-        ProductEntity mappedEntity = DataMappingUtil.mapProductUiToDb(originalProduct);
+        ProductEntity mappedEntity = DataMappingUtil.mapNewProductEntity(originalProduct);
         Assert.assertNotEquals(mappedEntity, testEntity);
     }
 
@@ -83,7 +83,7 @@ public class DataMappingUtilTests {
         testEntity.setPrice(new BigDecimal(100));
         testEntity.setRef("abc123");
 
-        ProductEntity mappedEntity = DataMappingUtil.mapProductUiToDb(originalProduct);
+        ProductEntity mappedEntity = DataMappingUtil.mapNewProductEntity(originalProduct);
         Assert.assertNotEquals(mappedEntity, testEntity);
     }
 
@@ -97,7 +97,7 @@ public class DataMappingUtilTests {
         testEntity.setName("Helicopter");
         testEntity.setPrice(new BigDecimal(2000));
 
-        ProductEntity mappedEntity = DataMappingUtil.mapProductUiToDb(originalProduct);
+        ProductEntity mappedEntity = DataMappingUtil.mapNewProductEntity(originalProduct);
         Assert.assertEquals(mappedEntity, testEntity);
     }
 
@@ -105,7 +105,7 @@ public class DataMappingUtilTests {
     public void productUiToDbNull() {
         Product originalProduct = new Product();
         ProductEntity testEntity = new ProductEntity();
-        ProductEntity mappedEntity = DataMappingUtil.mapProductUiToDb(originalProduct);
+        ProductEntity mappedEntity = DataMappingUtil.mapNewProductEntity(originalProduct);
         Assert.assertEquals(testEntity, mappedEntity);
     }
 
@@ -123,7 +123,7 @@ public class DataMappingUtilTests {
         testProduct.setPrice(new BigDecimal(300));
         testProduct.setRef("hhh777");
 
-        Product mappedProduct = DataMappingUtil.mapProductDbToUi(originalEntity);
+        Product mappedProduct = DataMappingUtil.mapNewProduct(originalEntity);
         Assert.assertEquals(mappedProduct, testProduct);
     }
 
@@ -142,7 +142,7 @@ public class DataMappingUtilTests {
         testProduct.setPrice(new BigDecimal(500000));
         testProduct.setRef("ppp999");
 
-        Product mappedProduct = DataMappingUtil.mapProductDbToUi(originalEntity);
+        Product mappedProduct = DataMappingUtil.mapNewProduct(originalEntity);
         Assert.assertNotEquals(mappedProduct, testProduct);
     }
 
@@ -160,7 +160,7 @@ public class DataMappingUtilTests {
         testProduct.setPrice(new BigDecimal(500));
         testProduct.setRef("ppp999");
 
-        Product mappedProduct = DataMappingUtil.mapProductDbToUi(originalEntity);
+        Product mappedProduct = DataMappingUtil.mapNewProduct(originalEntity);
         Assert.assertNotEquals(mappedProduct, testProduct);
     }
 
@@ -178,7 +178,7 @@ public class DataMappingUtilTests {
         testProduct.setPrice(new BigDecimal(500));
         testProduct.setRef("ppp999111");
 
-        Product mappedProduct = DataMappingUtil.mapProductDbToUi(originalEntity);
+        Product mappedProduct = DataMappingUtil.mapNewProduct(originalEntity);
         Assert.assertNotEquals(mappedProduct, testProduct);
     }
 
@@ -192,13 +192,13 @@ public class DataMappingUtilTests {
         testProduct.setName("Batmobile");
         testProduct.setRef("jjj666");
 
-        Product mappedProduct = DataMappingUtil.mapProductDbToUi(originalEntity);
+        Product mappedProduct = DataMappingUtil.mapNewProduct(originalEntity);
         Assert.assertEquals(mappedProduct, testProduct);    }
 
     @Test
     public void productDbToUiNull() {
         ProductEntity originalEntity = new ProductEntity();
         Product testProduct = new Product();
-        Product mappedProduct = DataMappingUtil.mapProductDbToUi(originalEntity);
+        Product mappedProduct = DataMappingUtil.mapNewProduct(originalEntity);
         Assert.assertEquals(mappedProduct, testProduct);    }
 }

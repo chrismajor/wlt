@@ -1,5 +1,6 @@
 package io.chrismajor.wlt.ui.controller;
 
+import io.chrismajor.wlt.exception.ProductNotFoundException;
 import io.chrismajor.wlt.service.ProductService;
 import io.chrismajor.wlt.ui.model.Product;
 import io.chrismajor.wlt.util.DataMappingUtil;
@@ -64,11 +65,19 @@ public class ListController {
 
         // TODO: validate XSS for ref
 
-        // get product by ref, add to the model
-        Product product = service.getProduct(ref);
-        model.addAttribute("product", product);
+        Product product;
+
+        try {
+            // get product by ref, add to the model
+            product = service.getProduct(ref);
+        }
+        catch (ProductNotFoundException e) {
+            log.warn("Product not found when fetching via ref " + ref, e);
+            return "redirect:/error/404";
+        }
 
         // view the product details
+        model.addAttribute("product", product);
         return "product";
     }
 
@@ -80,12 +89,19 @@ public class ListController {
     @RequestMapping(value = "/list/product/update", method = RequestMethod.POST)
     public String productUpdate(@Valid Product product, BindingResult bindingResult) {
 
+        // if there are validation errors, return to the same form
         if(bindingResult.hasErrors()) {
             return "newproduct";
         }
 
-        // hand product off to service to be updated
-        boolean success = service.updateProduct(product);
+        try {
+            // hand product off to service to be updated
+            service.updateProduct(product);
+        }
+        catch (ProductNotFoundException e) {
+            log.error("Product not found when trying to update " + product, e);
+            return "redirect:/error/500";
+        }
 
         // if the update has been successful, return to the product list
         return "redirect:/list";
@@ -99,7 +115,7 @@ public class ListController {
     @RequestMapping(value = "/list/product/new", method = RequestMethod.GET)
     public String newProduct(Model model) {
         Product product = new Product();
-        product.setRef(DataMappingUtil.createProductRef());
+        product.setRef("new");
         model.addAttribute("product", product);
         return "newproduct";
     }
@@ -112,6 +128,7 @@ public class ListController {
     @RequestMapping(value = "/list/product/new", method = RequestMethod.POST)
     public String productCreate(@Valid Product product, BindingResult bindingResult) {
 
+        // if there are validation errors, return to the same form
         if(bindingResult.hasErrors()) {
             return "newproduct";
         }
