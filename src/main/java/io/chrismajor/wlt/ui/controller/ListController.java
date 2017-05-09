@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -160,18 +161,18 @@ public class ListController {
 
     /**
      * Delete a product
-     * @param product the product to be deleted
+     * @param ref for the product to be deleted
      * @return the list view
      */
     @RequestMapping(value = "/list/product/delete", method = RequestMethod.POST)
-    public String productDelete(@Valid Product product, BindingResult bindingResult) {
+    public String productDelete(@RequestParam(value = "ref") String ref) {
         // TODO: does the user have the right access to delete a product?
             // TODO: if yes
                 try {
-                    service.deleteProduct(product.getRef());
+                    service.deleteProduct(ref);
                 }
                 catch (ProductNotFoundException e) {
-                    log.error("Product not found when trying to delete " + product, e);
+                    log.error("Product not found when trying to delete with ref " + ref, e);
                     return "redirect:/error/500";
                 }
                 catch (ServiceException e) {

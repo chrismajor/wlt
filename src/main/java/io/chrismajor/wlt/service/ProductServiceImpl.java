@@ -151,7 +151,7 @@ public class ProductServiceImpl implements ProductService{
      */
     private ProductEntity getProductEntity(String ref) throws ProductNotFoundException, ServiceException {
         if (StringUtils.isEmpty(ref)) {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException("Invalid ref parameter :: " + ref);
         }
 
         try {

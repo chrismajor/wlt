@@ -31,5 +31,10 @@
             </tr>
         </table>
     </form>
+    <!-- TODO: if user is admin... -->
+    <form action="#" th:action="@{/list/product/delete}" th:object="${product}" method="post">
+        <input type="hidden" th:field="*{ref}"/>
+        <button type="submit">Delete</button>
+    </form>
 </body>
 </html>
