@@ -16,6 +16,6 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Long> {
     @Query(value = "from ProductEntity where deletedDatetime is null")
     List<ProductEntity> getProducts() throws IOException;
 
-    @Query(value = "from ProductEntity where ref = ?1")
+    @Query(value = "from ProductEntity where ref = ?1 and deletedDatetime is null")
     ProductEntity getProductByRef(String ref) throws IOException;
 }

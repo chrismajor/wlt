@@ -168,7 +168,7 @@ public class ListController {
         // TODO: does the user have the right access to delete a product?
             // TODO: if yes
                 try {
-                    service.deleteProduct(product);
+                    service.deleteProduct(product.getRef());
                 }
                 catch (ProductNotFoundException e) {
                     log.error("Product not found when trying to delete " + product, e);

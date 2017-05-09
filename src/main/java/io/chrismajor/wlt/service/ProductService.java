@@ -39,8 +39,8 @@ public interface ProductService {
 
     /**
      * Mark a product as deleted in the database
-     * @param product the product to delte
-     * @return boolean to note the success of the operation
+     *
+     * @param ref@return boolean to note the success of the operation
      */
-    boolean deleteProduct(Product product) throws ProductNotFoundException, ServiceException;
+    boolean deleteProduct(String ref) throws ProductNotFoundException, ServiceException;
 }

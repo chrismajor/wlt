@@ -31,6 +31,12 @@ public class ProductServiceImpl implements ProductService{
     // Define the logger object for this class
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * Return the active list of products
+     *
+     * @return list of products
+     * @throws ServiceException exception thrown if IO issue is found
+     * */
     public List<Product> getProductList() throws ServiceException {
         try {
             List<ProductEntity> entities = repository.getProducts();
@@ -42,12 +48,27 @@ public class ProductServiceImpl implements ProductService{
         }
     }
 
+    /**
+     * Return a single Product, given it's ref
+     *
+     * @param ref the product ref
+     * @return the product
+     * @throws ProductNotFoundException exception thrown if product not found
+     * @throws ServiceException exception thrown if IO issue is found
+     * */
     public Product getProduct(String ref) throws ProductNotFoundException, ServiceException {
         ProductEntity entity = this.getProductEntity(ref);
         return DataMappingUtil.mapNewProduct(entity);
     }
 
-
+    /**
+     * Update a product using the details passed in via the UI.
+     * First grab the persisted details, then map the updated details on top. Then persist!
+     *
+     * @param product the product details to persist
+     * @throws ProductNotFoundException exception thrown if product not found
+     * @throws ServiceException exception thrown if IO issue is found
+     */
     public void updateProduct(Product product) throws ProductNotFoundException, ServiceException {
         if (product == null) {
             log.warn("null product passed to updateProduct service method");
@@ -63,6 +84,14 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
+    /**
+     * Create a new product via the details passed in from the UI.
+     * Assign this new product a unique ref.
+     *
+     * @param product details of the product we want to persist
+     * @return boolean to denote success
+     * @throws ServiceException exception thrown in case of IO issues
+     */
     public boolean createProduct(Product product) throws ServiceException {
         try {
             // create a new ref for the product
@@ -94,10 +123,20 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
-    public boolean deleteProduct(Product product) throws ProductNotFoundException, ServiceException {
-        String ref = product.getRef();
+    /**
+     * Set a product as "deleted" in the database. Doesn't actually remove the record from the database,
+     * but any read operations should be written to ignore "deleted" records.
+     *
+     * @param ref product ref
+     * @return boolean to note the success of the operation
+     * @throws ProductNotFoundException exception thrown if product not found
+     * @throws ServiceException exception thrown if IO issue is found
+     */
+    public boolean deleteProduct(String ref) throws ProductNotFoundException, ServiceException {
         ProductEntity entity = this.getProductEntity(ref);
-        repository.delete(entity);
+        entity.setDeletedDatetime(new Timestamp(new Date().getTime()));
+        // TODO: deleted user
+        repository.save(entity);
         return true;
     }
 
