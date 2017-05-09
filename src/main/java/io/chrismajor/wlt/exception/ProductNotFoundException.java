@@ -1,7 +1,15 @@
 package io.chrismajor.wlt.exception;
 
 /**
- * Created by Christo on 08/05/2017.
+ * Exception to indicate a product wasn't found
  */
 public class ProductNotFoundException extends Exception {
+    public ProductNotFoundException() {
+        super();
+    }
+
+    public ProductNotFoundException(String message) {
+        super(message);
+    }
+
 }

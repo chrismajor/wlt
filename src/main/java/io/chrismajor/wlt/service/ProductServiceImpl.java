@@ -2,13 +2,17 @@ package io.chrismajor.wlt.service;
 
 import io.chrismajor.wlt.domain.ProductEntity;
 import io.chrismajor.wlt.exception.ProductNotFoundException;
+import io.chrismajor.wlt.exception.ServiceException;
 import io.chrismajor.wlt.repository.ProductRepository;
 import io.chrismajor.wlt.ui.model.Product;
 import io.chrismajor.wlt.util.DataMappingUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -24,20 +28,33 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     private ProductRepository repository;
 
-    public List<Product> getProductList() {
-        List<ProductEntity> entities = repository.getProducts();
-        return DataMappingUtil.mapNewProductList(entities);
+    // Define the logger object for this class
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    public List<Product> getProductList() throws ServiceException {
+        try {
+            List<ProductEntity> entities = repository.getProducts();
+            return DataMappingUtil.mapNewProductList(entities);
+        }
+        catch (IOException e) {
+            log.error("IOException caught when reading from the database", e);
+            throw new ServiceException("Error occurred when accessing database");
+        }
     }
 
-    public Product getProduct(String ref) throws ProductNotFoundException {
+    public Product getProduct(String ref) throws ProductNotFoundException, ServiceException {
         ProductEntity entity = this.getProductEntity(ref);
         return DataMappingUtil.mapNewProduct(entity);
     }
 
 
-    public void updateProduct(Product product) throws ProductNotFoundException {
+    public void updateProduct(Product product) throws ProductNotFoundException, ServiceException {
+        if (product == null) {
+            log.warn("null product passed to updateProduct service method");
+            throw new ProductNotFoundException("null product passed to updateProduct service method");
+        }
+
         // fetch the currently persisted details for this product
-        // TODO: product == null error handling
         ProductEntity productEntity = this.getProductEntity(product.getRef());
 
         // map the updated details to this product, & persist
@@ -46,32 +63,38 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
-    public boolean createProduct(Product product) {
-        // create a new ref for the product
-        String newRef;
-        boolean unique;
+    public boolean createProduct(Product product) throws ServiceException {
+        try {
+            // create a new ref for the product
+            String newRef;
+            boolean unique;
 
-        // create a new ref for the product, ensure it's unique in the database
-        do {
-            newRef = DataMappingUtil.createProductRef();
-            ProductEntity entity = repository.getProductByRef(newRef);
+            // create a new ref for the product, ensure it's unique in the database
+            do {
+                newRef = DataMappingUtil.createProductRef();
+                ProductEntity entity = repository.getProductByRef(newRef);
 
-            // if we find an entity with this ref, we need to loop round and get a new ref
-            unique = entity == null;
+                // if we find an entity with this ref, we need to loop round and get a new ref
+                unique = entity == null;
+            }
+            while (!unique);
+
+            ProductEntity entity = DataMappingUtil.mapNewProductEntity(product);
+            entity.setRef(newRef);
+            entity.setCreatedDatetime(new Timestamp(new Date().getTime()));
+            // TODO: created user
+
+            repository.save(entity);
+            return true;
         }
-        while (!unique);
-
-        ProductEntity entity = DataMappingUtil.mapNewProductEntity(product);
-        entity.setRef(newRef);
-        entity.setCreatedDatetime(new Timestamp(new Date().getTime()));
-        // TODO: created user
-
-        repository.save(entity);
-        return true;
+        catch (IOException e) {
+            log.error("IOException caught when reading from the database", e);
+            throw new ServiceException("Error occurred when accessing database");
+        }
     }
 
 
-    public boolean deleteProduct(Product product) throws ProductNotFoundException {
+    public boolean deleteProduct(Product product) throws ProductNotFoundException, ServiceException {
         String ref = product.getRef();
         ProductEntity entity = this.getProductEntity(ref);
         repository.delete(entity);
@@ -87,18 +110,25 @@ public class ProductServiceImpl implements ProductService{
      * @return the product entity
      * @throws ProductNotFoundException exception thrown if there's data issues, or product can't be found!
      */
-    private ProductEntity getProductEntity(String ref) throws ProductNotFoundException {
+    private ProductEntity getProductEntity(String ref) throws ProductNotFoundException, ServiceException {
         if (StringUtils.isEmpty(ref)) {
             throw new ProductNotFoundException();
         }
 
-        ProductEntity entity = repository.getProductByRef(ref);
+        try {
+            ProductEntity entity = repository.getProductByRef(ref);
 
-        if (entity == null) {
-            throw new ProductNotFoundException();
+            if (entity == null) {
+                log.warn("No product found when searching DB with ref " + ref);
+                throw new ProductNotFoundException("Unable to find product using ref " + ref);
+            }
+            else {
+                return entity;
+            }
         }
-        else {
-            return entity;
+        catch (IOException e) {
+            log.error("IOException caught when reading from the database", e);
+            throw new ServiceException("Error occurred when accessing database");
         }
     }
 }

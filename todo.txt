@@ -5,14 +5,13 @@ Resources
 	
 
 TODO Tuesday
-    Finish off service-level error handling (stop DB from running..?)
-    Finish off controller-level error handling
     Update views with updated functionality
     Update controller unit tests
     Create service-level unit tests
 
 TODO next
 	OWASP ESAPI for input validation etc
+	info / debug level logging
 	inheritance for audit details (updated, created) in domain objects
     make exception structure (and creation) better
     users functionality!

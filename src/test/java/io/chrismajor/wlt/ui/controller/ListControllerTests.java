@@ -33,8 +33,8 @@ import static org.mockito.BDDMockito.*;
  *   GET  /list
  *   GET  /list/product
  *   GET  /list/product/new
+ *   POST /list/product
  *   POST /list/product/new
- *   POST /list/product/update
  *   POST /list/product/delete
  *
  */
@@ -198,7 +198,7 @@ public class ListControllerTests {
         // TODO: flesh out more, and XSS
     }
 
-    /** POST /list/product/update */
+    /** POST /list/product */
     @Test
     public void updateProduct() throws Exception {
         Product product1 = new Product();
@@ -209,7 +209,7 @@ public class ListControllerTests {
 
         doNothing().when(this.productService).updateProduct(product1);
 
-        this.mockMvc.perform(post("/list/product/update")
+        this.mockMvc.perform(post("/list/product")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
                 .param("price", "1000")
@@ -219,17 +219,17 @@ public class ListControllerTests {
                 .andExpect(status().is3xxRedirection());
     }
 
-    /** POST /list/product/update */
+    /** POST /list/product */
     @Test
     public void updateProduct_missingDetails() throws Exception {
-        this.mockMvc.perform(post("/list/product/update"))
+        this.mockMvc.perform(post("/list/product"))
                 .andExpect(model().attributeHasErrors("product"));
     }
 
-    /** POST /list/product/update */
+    /** POST /list/product */
     @Test
     public void updateProduct_invalidDetails1() throws Exception {
-        this.mockMvc.perform(post("/list/product/update")
+        this.mockMvc.perform(post("/list/product")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
                 .param("price", "NaN")
@@ -237,10 +237,10 @@ public class ListControllerTests {
                 .andExpect(model().attributeHasErrors("product"));
     }
 
-    /** POST /list/product/update */
+    /** POST /list/product */
     @Test
     public void updateProduct_invalidDetails2() throws Exception {
-        this.mockMvc.perform(post("/list/product/update")
+        this.mockMvc.perform(post("/list/product")
                 .param("name", "Hat")
                 .param("description", "")
                 .param("price", "100")
@@ -248,10 +248,10 @@ public class ListControllerTests {
                 .andExpect(model().attributeHasErrors("product"));
     }
 
-    /** POST /list/product/update */
+    /** POST /list/product */
     @Test
     public void updateProduct_invalidDetails3() throws Exception {
-        this.mockMvc.perform(post("/list/product/update")
+        this.mockMvc.perform(post("/list/product")
                 .param("name", "")
                 .param("description", "fancy top hat")
                 .param("price", "100")
@@ -259,10 +259,10 @@ public class ListControllerTests {
                 .andExpect(model().attributeHasErrors("product"));
     }
 
-    /** POST /list/product/update */
+    /** POST /list/product */
     @Test
     public void updateProduct_invalidDetails4() throws Exception {
-        this.mockMvc.perform(post("/list/product/update")
+        this.mockMvc.perform(post("/list/product")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
                 .param("price", "100")
