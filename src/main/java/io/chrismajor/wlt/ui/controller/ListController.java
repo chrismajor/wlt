@@ -149,8 +149,13 @@ public class ListController {
     public String productDelete(@Valid Product product, BindingResult bindingResult) {
         // TODO: does the user have the right access to delete a product?
             // TODO: if yes
-                boolean success = service.deleteProduct(product);
-                // TODO: if unsuccess (i.e. invalid ref), error page?
+                try {
+                    boolean success = service.deleteProduct(product);
+                }
+                catch (ProductNotFoundException e) {
+                    log.error("Product not found when trying to delete " + product, e);
+                    return "redirect:/error/500";
+                }
             // TODO: if no, bump user to 403 page?
 
         return "redirect:/list";

@@ -30,32 +30,17 @@ public class ProductServiceImpl implements ProductService{
     }
 
     public Product getProduct(String ref) throws ProductNotFoundException {
-        if (StringUtils.isEmpty(ref)) {
-            throw new ProductNotFoundException();
-        }
-
         ProductEntity entity = this.getProductEntity(ref);
-
-        if (entity == null) {
-            throw new ProductNotFoundException();
-        }
-        else {
-            return DataMappingUtil.mapNewProduct(entity);
-        }
+        return DataMappingUtil.mapNewProduct(entity);
     }
 
 
     public void updateProduct(Product product) throws ProductNotFoundException {
-        if (product == null || StringUtils.isEmpty(product.getRef())) {
-            throw new ProductNotFoundException();
-        }
-
+        // fetch the currently persisted details for this product
+        // TODO: product == null error handling
         ProductEntity productEntity = this.getProductEntity(product.getRef());
 
-        if (productEntity == null) {
-            throw new ProductNotFoundException();
-        }
-
+        // map the updated details to this product, & persist
         DataMappingUtil.mapProductToProductEntity(product, productEntity);
         repository.save(productEntity);
     }
@@ -86,11 +71,34 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
-    public boolean deleteProduct(Product product) {
-        return false;
+    public boolean deleteProduct(Product product) throws ProductNotFoundException {
+        String ref = product.getRef();
+        ProductEntity entity = this.getProductEntity(ref);
+        repository.delete(entity);
+        return true;
     }
 
-    private ProductEntity getProductEntity(String ref) {
-        return repository.getProductByRef(ref);
+    /**
+     * Private operation for fetching a product entity from the DB by it's ref field
+     *
+     * Null safe, includes error handling for products that can't be found
+     *
+     * @param ref the product ref
+     * @return the product entity
+     * @throws ProductNotFoundException exception thrown if there's data issues, or product can't be found!
+     */
+    private ProductEntity getProductEntity(String ref) throws ProductNotFoundException {
+        if (StringUtils.isEmpty(ref)) {
+            throw new ProductNotFoundException();
+        }
+
+        ProductEntity entity = repository.getProductByRef(ref);
+
+        if (entity == null) {
+            throw new ProductNotFoundException();
+        }
+        else {
+            return entity;
+        }
     }
 }

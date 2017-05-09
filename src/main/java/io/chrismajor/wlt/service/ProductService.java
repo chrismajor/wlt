@@ -41,5 +41,5 @@ public interface ProductService {
      * @param product the product to delte
      * @return boolean to note the success of the operation
      */
-    boolean deleteProduct(Product product);
+    boolean deleteProduct(Product product) throws ProductNotFoundException;
 }

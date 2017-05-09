@@ -3,18 +3,23 @@ Resources
 	https://spring.io/guides/gs/securing-web/
 	https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-normal-controllers/
 	
-	
 
-TODO
+TODO Tuesday
+    Finish off service-level error handling (stop DB from running..?)
+    Finish off controller-level error handling
+    Update views with updated functionality
+    Update controller unit tests
+    Create service-level unit tests
+
+TODO next
+	OWASP ESAPI for input validation etc
+	inheritance for audit details (updated, created) in domain objects
+    make exception structure (and creation) better
+    users functionality!
+	DB scripts: provisioning an initial admin user
 	encrypt passwords
 		salt with timestamp?
 		hash with bcrypt
-	DB scripts: provisioning an initial admin user
-	OWASP ESAPI for input validation etc
-	inheritance for audit details (updated, created) in domain objects
-    product controller / service : error handling
-    make exception structure (and creation) better
-    users functionality!
 
 nice 2 have
     UI: stick "ref" in the session instead hidden in the form
