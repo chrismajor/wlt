@@ -49,7 +49,7 @@ public class ListController {
         }
         catch (ServiceException e) {
             log.error("Service error occurred when trying to get a product's details", e);
-            return "redirect:/error/500";
+            return "error/500";
         }
 
         // display the product list
@@ -78,11 +78,11 @@ public class ListController {
         }
         catch (ProductNotFoundException e) {
             log.warn("Product not found when fetching via ref " + ref, e);
-            return "redirect:/error/404";
+            return "error/404";
         }
         catch (ServiceException e) {
             log.error("Service error occurred when trying to get a product's details", e);
-            return "redirect:/error/500";
+            return "error/500";
         }
 
         // view the product details
@@ -109,11 +109,11 @@ public class ListController {
         }
         catch (ProductNotFoundException e) {
             log.error("Product not found when trying to update " + product, e);
-            return "redirect:/error/500";
+            return "error/500";
         }
         catch (ServiceException e) {
             log.error("Service error occurred when trying to get a product's details", e);
-            return "redirect:/error/500";
+            return "error/500";
         }
 
         // if the update has been successful, return to the product list
@@ -152,7 +152,7 @@ public class ListController {
         }
         catch (ServiceException e) {
             log.error("Service error occurred when trying to get a product's details", e);
-            return "redirect:/error/500";
+            return "error/500";
         }
 
         // on success, pass user back to the list view
@@ -173,11 +173,11 @@ public class ListController {
                 }
                 catch (ProductNotFoundException e) {
                     log.error("Product not found when trying to delete with ref " + ref, e);
-                    return "redirect:/error/500";
+                    return "error/500";
                 }
                 catch (ServiceException e) {
                     log.error("Service error occurred when trying to get a product's details", e);
-                    return "redirect:/error/500";
+                    return "error/500";
                 }
         // TODO: if no, bump user to 403 page?
 
