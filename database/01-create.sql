@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS wlt.product (
     name VARCHAR(255) NOT NULL              COMMENT 'Name of the product',
     description VARCHAR(255)                COMMENT 'Description of the product',
     price DECIMAL                           COMMENT 'Price of the product',
-    ref VARCHAR(255) UNIQUE NOT NULL        COMMENT 'UI-friendly identifier for the product',
+    ref VARCHAR(255) UNIQUE NOT NULL        COMMENT 'UI-friendly identifier for the product', -- indexed due to 'unique' clause
     created_datetime DATETIME NOT NULL      COMMENT 'Datetime the product was created',
     created_user_id INTEGER                 COMMENT 'User that created the product', -- TODO: foreign key
     updated_datetime DATETIME               COMMENT 'Datetime the product was updated',
@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS wlt.product (
     deleted_user_id INTEGER                 COMMENT 'User that deleted the product' -- TODO: foreign key
 );
 
--- todo: index ref column
 
 -- create user
 CREATE USER 'wltapp'@'localhost' IDENTIFIED BY 'r4ttl3sn4k3s???';

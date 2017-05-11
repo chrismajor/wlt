@@ -29,19 +29,19 @@ public class ProductEntity {
     /** UI-friendly ID for the product */
     private String ref;
 
-    /** Date & time the record was created. TODO: should this be a Date / other? */
+    /** Date & time the record was created */
     private Timestamp createdDatetime;
 
     /** ID of the user that created the product */
     private Long createdUserId;
 
-    /** Date & time the record was updated. TODO: should this be a Date / other? */
+    /** Date & time the record was updated */
     private Timestamp updatedDatetime;
 
     /** ID of the user that updated the product */
     private Long updatedUserId;
 
-    /** Date & time the record was deleted. If null, hasn't been deleted yet! TODO: should this be a Date / other? */
+    /** Date & time the record was deleted. If null, hasn't been deleted yet! */
     private Timestamp deletedDatetime;
 
     /** ID of the user that updated the product */

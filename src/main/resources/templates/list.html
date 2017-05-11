@@ -6,6 +6,15 @@
 </head>
     <body>
         <h1 id="title">Product List</h1>
+        <div th:if="${param.created}">
+            Product successfully created.
+        </div>
+        <div th:if="${param.updated}">
+            Product successfully updated.
+        </div>
+        <div th:if="${param.deleted}">
+            Product successfully deleted.
+        </div>
         <table>
             <tr>
                 <th>Name</th>
@@ -13,9 +22,12 @@
                 <th>Description</th>
             </tr>
             <tr th:each="product : ${products}">
-                <td th:text="${product.name}">Name</td>
+                <td><a th:href="@{/list/product(ref=${product.ref})}" th:text="${product.name}">Product name</a></td>
                 <td th:text="${product.price}">Price</td>
                 <td th:text="${product.description}">Description</td>
+                <!--<td th:text="${product.name}">Name</td>-->
+                <!--<td th:text="${product.price}">Price</td>-->
+                <!--<td th:text="${product.description}">Description</td>-->
             </tr>
         </table>
         <a href="/list/product/new">Create a new product</a>
