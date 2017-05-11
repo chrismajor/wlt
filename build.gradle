@@ -30,17 +30,17 @@ repositories {
     mavenCentral()
 }
 
-// define dependencies
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-thymeleaf"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-starter-security"
     compile "mysql:mysql-connector-java:5.1.6"
-	// bcrypt
-	// owasp esapi
-//    testCompile("junit:junit")
+//    compile "org.owasp.esapi:esapi:2.1.0.1"
+    // bcrypt
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile "org.springframework.security:spring-security-test"
 }
+// define dependencies
 
 // configure code coverage reports
 jacocoTestReport {
