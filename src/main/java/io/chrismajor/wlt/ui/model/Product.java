@@ -12,6 +12,8 @@ import java.util.Objects;
  */
 public class Product {
 
+    // TODO: max field sizes in line with DB
+
     /** name of the product */
     @NotNull(message = "Please enter a product name")
     @Size(min = 1, message = "Please enter a product name")

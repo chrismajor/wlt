@@ -56,6 +56,17 @@ public class ListControllerTests {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
+
+/* TODO:::
+
+implement tests for product not found exceptions
+implement tests for service exceptions
+
+.andExpect(view().name("globalerrors/password"));
+
+*/
+
+
     @Test
     public void listProducts_404() throws Exception {
         this.mockMvc.perform(get("/list/nope")).andExpect(status().is4xxClientError());
@@ -94,14 +105,6 @@ public class ListControllerTests {
         this.mockMvc.perform(get("/list")).andExpect(status().isOk())
                 .andExpect(xpath("//h1[@id='title']").exists())
                 .andExpect(xpath("//h1[@id='title']").string("Product List"));
-    }
-
-    // TODO: list products no results
-    // TODO: list products with results
-
-    /** GET  /list */
-    public void listProducts_noDb() throws Exception {
-
     }
 
     /** GET  /list/product */
@@ -177,25 +180,46 @@ public class ListControllerTests {
 
     /** POST /list/product/new */
     @Test
-    public void saveNewProduct_invalidDetails1() throws Exception {
+    public void saveNewProduct_invalidName() throws Exception {
         this.mockMvc.perform(post("/list/product/new")
                 .param("name", "")
                 .param("description", "fancy top hat")
                 .param("price", "1000")
                 .param("ref", "hhh333"))
-                .andExpect(model().attributeHasErrors("product"));
+                .andExpect(model().attributeHasFieldErrors("product", "name"));
     }
 
     /** POST /list/product/new */
     @Test
-    public void saveNewProduct_invalidDetails2() throws Exception {
+    public void saveNewProduct_invalidDescription() throws Exception {
         this.mockMvc.perform(post("/list/product/new")
-                .param("name", "")
-                .param("description", "fancy top hat")
-                .param("price", "bananas"))
-                .andExpect(model().attributeHasErrors("product"));
+                .param("name", "Hat")
+                .param("description", "")
+                .param("price", "1000")
+                .param("ref", "hhh333"))
+                .andExpect(model().attributeHasFieldErrors("product", "description"));
+    }
 
-        // TODO: flesh out more, and XSS
+    /** POST /list/product/new */
+    @Test
+    public void saveNewProduct_invalidPrice() throws Exception {
+        this.mockMvc.perform(post("/list/product/new")
+                .param("name", "Hat")
+                .param("description", "swanky old top hat")
+                .param("price", "bananas")
+                .param("ref", "hhh333"))
+                .andExpect(model().attributeHasFieldErrors("product", "price"));
+    }
+
+    /** POST /list/product/new */
+    @Test
+    public void saveNewProduct_invalidRef() throws Exception {
+        this.mockMvc.perform(post("/list/product/new")
+                .param("name", "Hat")
+                .param("description", "swanky old top hat")
+                .param("price", "bananas")
+                .param("ref", ""))
+                .andExpect(model().attributeHasFieldErrors("product", "ref"));
     }
 
     /** POST /list/product */
@@ -228,57 +252,59 @@ public class ListControllerTests {
 
     /** POST /list/product */
     @Test
-    public void updateProduct_invalidDetails1() throws Exception {
+    public void updateProduct_invalidPrice() throws Exception {
         this.mockMvc.perform(post("/list/product")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
                 .param("price", "NaN")
                 .param("ref","aaa"))
-                .andExpect(model().attributeHasErrors("product"));
+                .andExpect(model().attributeHasFieldErrors("product", "price"));
     }
 
     /** POST /list/product */
     @Test
-    public void updateProduct_invalidDetails2() throws Exception {
+    public void updateProduct_invalidDetailsDescription() throws Exception {
         this.mockMvc.perform(post("/list/product")
                 .param("name", "Hat")
                 .param("description", "")
                 .param("price", "100")
                 .param("ref","aaa"))
-                .andExpect(model().attributeHasErrors("product"));
+                .andExpect(model().attributeHasFieldErrors("product", "description"));
     }
 
     /** POST /list/product */
     @Test
-    public void updateProduct_invalidDetails3() throws Exception {
+    public void updateProduct_invalidDetailsName() throws Exception {
         this.mockMvc.perform(post("/list/product")
                 .param("name", "")
                 .param("description", "fancy top hat")
                 .param("price", "100")
                 .param("ref","aaa"))
-                .andExpect(model().attributeHasErrors("product"));
+                .andExpect(model().attributeHasFieldErrors("product", "name"));
     }
 
     /** POST /list/product */
     @Test
-    public void updateProduct_invalidDetails4() throws Exception {
+    public void updateProduct_invalidDetailsRef() throws Exception {
         this.mockMvc.perform(post("/list/product")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
                 .param("price", "100")
                 .param("ref",""))
-                .andExpect(model().attributeHasErrors("product"));
+                .andExpect(model().attributeHasFieldErrors("product", "ref"));
     }
 
     /** POST /list/product/delete */
+    @Test
     public void deleteProduct() throws Exception {
+        given(this.productService.deleteProduct("aaa")).willReturn(true);
+
         this.mockMvc.perform(post("/list/product/delete")
                 .param("name", "Hat")
                 .param("description", "fancy top hat")
                 .param("price", "1000")
                 .param("ref","aaa"))
-                .andExpect(model().attributeHasNoErrors("product"))
-                .andExpect(status().isOk());
+                .andExpect(status().is3xxRedirection());
     }
 
     /** POST /list/product/delete */
