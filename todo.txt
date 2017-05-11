@@ -1,24 +1,23 @@
 Resources
 	https://spring.io/guides/gs/securing-web/
 
-TODO Wednesday
-    Update controller unit tests
-    Create service-level unit tests
-	OWASP ESAPI for input validation etc
+TODO Friday
+    proper users functionality!
+	DB scripts: provisioning an initial admin user
 
 TODO next
-	info / debug level logging
-    users functionality!
-	DB scripts: provisioning an initial admin user
 	encrypt passwords
 		salt with timestamp?
 		hash with bcrypt
 
 TODO tidying up
-    make exception structure (and creation) better
+	info / debug level logging
 	inheritance for audit details (updated, created) in domain objects
+    make exception structure better
+	check against 12 factor app
 
 nice 2 have
+	OWASP ESAPI for input validation etc
     UI: stick "ref" in the session instead hidden in the form
     fine tune logging
 	bootstrap

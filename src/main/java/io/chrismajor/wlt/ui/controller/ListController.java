@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +20,6 @@ import java.util.List;
 /**
  * Controller for product list operations
  *
- * TODO: error handling
  * TODO: XSS validation
  */
 @Controller
@@ -67,8 +65,6 @@ public class ListController {
     public String product(
             @RequestParam(value="ref", required=true) String ref,
             Model model) {
-
-        // TODO: validate XSS for ref
 
         Product product;
 
@@ -117,7 +113,7 @@ public class ListController {
         }
 
         // if the update has been successful, return to the product list
-        return "redirect:/list";
+        return "redirect:/list?updated";
     }
 
     /**
@@ -156,7 +152,7 @@ public class ListController {
         }
 
         // on success, pass user back to the list view
-        return "redirect:/list";
+        return "redirect:/list?created";
     }
 
     /**
@@ -181,6 +177,6 @@ public class ListController {
                 }
         // TODO: if no, bump user to 403 page?
 
-        return "redirect:/list";
+        return "redirect:/list?deleted";
     }
 }

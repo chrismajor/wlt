@@ -61,6 +61,14 @@ public class DataMappingUtil {
 
     // TODO: user UI to DB
 
+    /**
+     * Create a random product ref
+     *
+     * This method will need to be updated if app was to scale,
+     * in order to ensure uniqueness without having to harass the database
+     *
+     * @return a new product ref
+     */
     public static String createProductRef() {
         return UUID.randomUUID().toString();
     }
