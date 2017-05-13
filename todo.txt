@@ -2,7 +2,6 @@ Resources
 	https://spring.io/guides/gs/securing-web/
 
 TODO Friday
-    admin-specific stuff in UI
     JDBC users functionality
 	DB scripts: provisioning an initial admin user
     security unit tests
@@ -18,7 +17,6 @@ TODO next
 TODO tidying up
 	info / debug level logging
 	ensure HTTPS is enabled
-	inheritance for audit details (updated, created) in domain objects
     make exception structure better
 	check against 12 factor app
 
