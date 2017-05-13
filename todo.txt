@@ -2,25 +2,31 @@ Resources
 	https://spring.io/guides/gs/securing-web/
 
 TODO Friday
-    proper users functionality!
+    admin-specific stuff in UI
+    JDBC users functionality
 	DB scripts: provisioning an initial admin user
+    security unit tests
 
 TODO next
 	encrypt passwords
 		salt with timestamp?
 		hash with bcrypt
+    proper templating with thymeleaf
+        include user related headers (logout etc) http://docs.spring.io/spring-security/site/docs/4.2.2.RELEASE/reference/htmlsingle/#jc-logout
+	bootstrap
 
 TODO tidying up
 	info / debug level logging
+	ensure HTTPS is enabled
 	inheritance for audit details (updated, created) in domain objects
     make exception structure better
 	check against 12 factor app
 
 nice 2 have
+    RememberMe auth
 	OWASP ESAPI for input validation etc
     UI: stick "ref" in the session instead hidden in the form
     fine tune logging
-	bootstrap
     AWS
     gradle wrapper
 	cloud mysql

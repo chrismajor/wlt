@@ -19,6 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
 //              .antMatchers("/", "/home").permitAll()
                 .anyRequest().authenticated()
+                .antMatchers("/list/product/delete").hasRole("ADMIN")
                 .and()
             .formLogin()
                 .loginPage("/login")
@@ -31,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-            .withUser("user").password("password").roles("USER");
+            .withUser("user").password("password").roles("USER")
+            .and().withUser("admin").password("password").roles("USER","ADMIN");
     }
 }

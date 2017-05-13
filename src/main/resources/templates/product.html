@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Product Details</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -26,15 +27,17 @@
             <tr>
                 <td>
                     <input type="hidden" th:field="*{ref}"/>
-                    <button type="submit">Submit</button>
+                    <button type="submit">Update</button>
                 </td>
             </tr>
         </table>
     </form>
-    <!-- TODO: if user is admin... -->
-    <form action="#" th:action="@{/list/product/delete}" th:object="${product}" method="post">
-        <input type="hidden" th:field="*{ref}"/>
-        <button type="submit">Delete</button>
-    </form>
+    <!--form th:if="${#authentication.principal.isAdmin()}" action="#" th:action="@{/list/product/delete}" th:object="${product}" method="post"-->
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <form action="#" th:action="@{/list/product/delete}" th:object="${product}" method="post">
+            <input type="hidden" th:field="*{ref}"/>
+            <button type="submit">Delete</button>
+        </form>
+    </div>
 </body>
 </html>

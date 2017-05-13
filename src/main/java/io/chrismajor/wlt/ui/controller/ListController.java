@@ -4,9 +4,14 @@ import io.chrismajor.wlt.exception.ProductNotFoundException;
 import io.chrismajor.wlt.exception.ServiceException;
 import io.chrismajor.wlt.service.ProductService;
 import io.chrismajor.wlt.ui.model.Product;
+import io.chrismajor.wlt.util.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller for product list operations
@@ -161,21 +168,30 @@ public class ListController {
      * @return the list view
      */
     @RequestMapping(value = "/list/product/delete", method = RequestMethod.POST)
-    public String productDelete(@RequestParam(value = "ref") String ref) {
-        // TODO: does the user have the right access to delete a product?
-            // TODO: if yes
-                try {
-                    service.deleteProduct(ref);
-                }
-                catch (ProductNotFoundException e) {
-                    log.error("Product not found when trying to delete with ref " + ref, e);
-                    return "error/500";
-                }
-                catch (ServiceException e) {
-                    log.error("Service error occurred when trying to get a product's details", e);
-                    return "error/500";
-                }
-        // TODO: if no, bump user to 403 page?
+    public String productDelete(
+                @RequestParam(value = "ref") String ref,
+                Authentication auth
+            ) {
+
+        // get role names using snazzy functional logic
+        List<String> authNames = auth.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.toList());
+
+        // if user has access to delete a product...
+        if (authNames.contains("ROLE_ADMIN")) {
+            try {
+                service.deleteProduct(ref);
+            } catch (ProductNotFoundException e) {
+                log.error("Product not found when trying to delete with ref " + ref, e);
+                return "error/500";
+            } catch (ServiceException e) {
+                log.error("Service error occurred when trying to get a product's details", e);
+                return "error/500";
+            }
+        }
+        // else, error page
+        else {
+            return "error/403";
+        }
 
         return "redirect:/list?deleted";
     }
