@@ -30,16 +30,29 @@ CREATE TABLE IF NOT EXISTS wlt.user (
 --    FOREIGN KEY (person_id) REFERENCES wlt.person(id)
 );
 
-CREATE TABLE IF NOT EXISTS wlt.user_role (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the user role',
-    role VARCHAR(255) UNIQUE NOT NULL,
-    user_id INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES wlt.user(id)
+CREATE TABLE IF NOT EXISTS wlt.role (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the role',
+    role VARCHAR(255) UNIQUE NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS wlt.user_role (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the user role',
+    user_id INTEGER NOT NULL,
+    role_id INTEGER NOT NULL,
+    UNIQUE (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES wlt.user(id),
+    FOREIGN KEY (role_id) REFERENCES wlt.role(id)
+);
+
+INSERT INTO wlt.role (role) VALUES ('ROLE_USER');
+INSERT INTO wlt.role (role) VALUES ('ROLE_ADMIN');
 
 INSERT INTO wlt.user (username, enabled, password) VALUES ('user', true, 'password');
 INSERT INTO wlt.user_role (role, user_id) VALUES ('ROLE_USER', LAST_INSERT_ID());
+
+
+-- add in an initial admin user
+-- TODO: insert into user...
 
 CREATE TABLE IF NOT EXISTS wlt.product (
     id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the product',
@@ -60,8 +73,6 @@ CREATE TABLE IF NOT EXISTS wlt.product (
 
 
 
--- add in an initial admin user
--- TODO: insert into user...
 
 
 -- create DB user
