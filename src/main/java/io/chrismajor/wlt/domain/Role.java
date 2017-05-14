@@ -4,12 +4,17 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Created by Christo on 13/05/2017.
+ * Entity bean to describe a user's role
  */
 @Entity
 public class Role {
+    /** primary key */
     private Long id;
+
+    /** the role name */
     private String name;
+
+    /** users that have the given role */
     private Set<User> users;
 
     @Id

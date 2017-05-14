@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Christo on 11/05/2017.
+ * Controller for security operations
  */
 @Controller
 public class SecurityController {
@@ -32,41 +32,66 @@ public class SecurityController {
     @Autowired
     private SecurityService securityService;
 
-    // Define the logger object for this class
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * Initialise data binder for date formatting
+     * @param binder the binder
+     */
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true);
         binder.registerCustomEditor(Date.class, editor);
     }
 
+    /**
+     * Display the login page
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
 
-        if (logout != null)
+        if (error != null) {
+            model.addAttribute("error", "Your username and password is invalid.");
+        }
+
+        if (logout != null) {
             model.addAttribute("message", "You have been logged out successfully.");
+        }
 
         return "login";
     }
 
+    /**
+     * Display the registration page
+     */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
         model.addAttribute("userdetails", new UserDetails());
         return "register";
     }
 
+    /**
+     * Register the user
+     * Unless there's validation issues, in which case punt them back to the forn
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registration(@Valid @ModelAttribute("userdetails") UserDetails userForm, BindingResult bindingResult, Model model) {
+    public String register(
+            @Valid @ModelAttribute("userdetails") UserDetails userDetails,
+            BindingResult bindingResult,
+            Model model
+    ) {
 
         if (bindingResult.hasErrors()) {
             return "register";
         }
 
-        userService.save(userForm);
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        // save the user's details
+        userService.save(userDetails);
+
+        // log the user in
+        securityService.autologin(userDetails.getUsername(), userDetails.getPasswordConfirm());
+
+        // direct the user to the list view
         return "redirect:/list";
     }
 }

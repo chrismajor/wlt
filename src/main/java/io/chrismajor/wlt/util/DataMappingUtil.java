@@ -21,6 +21,12 @@ import java.util.UUID;
  * TODO: throw new exception if null input?
  */
 public class DataMappingUtil {
+
+    /**
+     * Create a new instance of a Product, using the details from a ProductEntity
+     * @param productEntity the product entity details
+     * @return a fully populated Product
+     */
     public static Product mapNewProduct(ProductEntity productEntity) {
         Product product = new Product();
 
@@ -34,6 +40,11 @@ public class DataMappingUtil {
         return product;
     }
 
+    /**
+     * Create a new list of Products, using a list of ProductEntitys as input
+     * @param entities the list of product entities
+     * @return a list of Products
+     */
     public static List<Product> mapNewProductList(List<ProductEntity> entities) {
         List<Product> products = new ArrayList<>();
 
@@ -44,6 +55,11 @@ public class DataMappingUtil {
         return products;
     }
 
+    /**
+     * Create a new instance of a ProductEntity, using a Product to populate the detail
+     * @param product the Product to use as input
+     * @return a new ProductEntity
+     */
     public static ProductEntity mapNewProductEntity(Product product) {
         ProductEntity productEntity = new ProductEntity();
 
@@ -57,6 +73,11 @@ public class DataMappingUtil {
         return productEntity;
     }
 
+    /**
+     * Map a Product's details onto an existing ProductEntity
+     * @param src the Product to read the details from
+     * @param dest the ProductEntity to write the details to
+     */
     public static void mapProductToProductEntity(Product src, ProductEntity dest) {
         dest.setName(src.getName());
         dest.setDescription(src.getDescription());
@@ -64,6 +85,12 @@ public class DataMappingUtil {
         dest.setRef(src.getRef());
     }
 
+    /**
+     * Create a new instance of a User entity (and it's nested Person & Address entities) using the details
+     * of a UserDetails object
+     * @param userDetails the UserDetails object to use as input
+     * @return a new User entity
+     */
     public static User mapNewUser(UserDetails userDetails) {
         User user = new User();
 

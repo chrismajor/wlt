@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 /**
- * Created by Christo on 06/05/2017.
+ * The main Application class.
  */
 @SpringBootApplication
 public class Application {
+    /**
+     * This is where the magic happens
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

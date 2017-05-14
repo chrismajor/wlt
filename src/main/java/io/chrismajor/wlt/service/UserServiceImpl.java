@@ -11,13 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Christo on 13/05/2017.
+ * Service level operations for managing user CRUDing
  */
-// TODO: unify security & user service?
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -30,6 +28,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * Persist a given user's details to the database
+     * @param userDetails the user's details
+     */
     @Override
     public void save(UserDetails userDetails) {
         User user = DataMappingUtil.mapNewUser(userDetails);
@@ -44,8 +46,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+// TODO: remove if unused
+//    /**
+//     * Find a user's details by their username
+//     * @param username the username
+//     * @return
+//     */
+//    @Override
+//    public User findByUsername(String username) {
+//        return userRepository.findByUsername(username);
+//    }
 }

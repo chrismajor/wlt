@@ -1,6 +1,5 @@
 package io.chrismajor.wlt.service;
 
-import io.chrismajor.wlt.domain.Role;
 import io.chrismajor.wlt.domain.User;
 import io.chrismajor.wlt.repository.UserRepository;
 import org.slf4j.Logger;
@@ -14,8 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Supporting functions for auth & registration
@@ -28,6 +27,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Retrieve a user's details using their username
+     * @param username the username
+     * @return user's details
+     * @throws UsernameNotFoundException if the user isn't found, or isn't valid, throw an exception
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,13 +42,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.warn("unable to find user with username " + username);
             throw new UsernameNotFoundException("unable to find user with username " + username);
         }
-
-        // TODO: move this to DataMappingHelper
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        else if (user.getRoles() == null || user.getRoles().size() < 1) {
+            log.error("no roles found for user " + username);
+            throw new UsernameNotFoundException("no roles found for user " + username);
         }
 
+        // create a set of GrantedAuthoritys from the retrieved user's roles
+        Set<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+                .map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toSet());
+
+        // return the user details
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 }

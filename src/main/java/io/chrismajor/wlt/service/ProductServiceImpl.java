@@ -30,7 +30,6 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     private ProductRepository repository;
 
-    // Define the logger object for this class
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -41,6 +40,7 @@ public class ProductServiceImpl implements ProductService{
      * */
     public List<Product> getProductList() throws ServiceException {
         try {
+            // TODO: lambda function
             List<ProductEntity> entities = repository.getProducts();
             return DataMappingUtil.mapNewProductList(entities);
         }

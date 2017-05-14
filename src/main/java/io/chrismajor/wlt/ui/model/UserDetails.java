@@ -12,57 +12,67 @@ import java.util.Date;
  * UI bean to describe a user's details
  */
 public class UserDetails {
+    /** username / email address*/
     @NotNull(message = "Please enter an email address")
     @Size(min = 1, max = 255, message = "Please enter an email address")
     @Email(message = "Please enter a valid email address")
     private String username;
 
-    private boolean enabled;
-
+    /** password */
     @NotNull(message = "Please enter a password")
     @Size(min = 1, max = 255, message = "Please enter a password")
     private String password;
 
+    /** password confirmation (has to match password field) */
     @NotNull(message = "Please confirm your password")
     @Size(min = 1, max = 255, message = "Please confirm your password")
-    // TODO: passwords match?
     private String passwordConfirm;
 
+    /** first name */
     @NotNull(message = "Please enter your forename")
     @Size(min = 1, max = 255, message = "Please enter your forename")
     private String forename;
 
+    /** last name */
     @NotNull(message = "Please enter your surname")
     @Size(min = 1, max = 255, message = "Please enter your surname")
     private String surname;
 
+    /** date of birth */
     @NotNull(message = "Please enter your date of birth")
     @DateTimeFormat(pattern="dd/MM/YYYY")
     private Date dob;
 
+    /** first line of user's address */
     @NotNull(message = "Please enter the first line of your address")
     @Size(min = 1, max = 255, message = "Please enter the first line of your address")
     private String addressLine1;
 
+    /** second line of user's address (optional) */
     @Size(max = 255, message = "That's too much address")
     private String addressLine2;
 
+    /** town / city */
     @NotNull(message = "Please enter your town / city")
     @Size(min = 1, max = 255, message = "Please enter your town / city")
     private String town;
 
+    /** county / state */
     @NotNull(message = "Please enter your county")
     @Size(min = 1, max = 255, message = "Please enter your county")
     private String county;
 
+    /** country */
     @NotNull(message = "Please enter your country")
     @Size(min = 1, max = 255, message = "Please enter your country")
     private String country;
 
+    /** post code / zip code */
     @NotNull(message = "Please enter your postcode")
     @Size(min = 1, max = 15, message = "Please enter your postcode")
     private String postcode;
 
+    /** validation rule to ensure the password matches the password confirmation field */
     @AssertTrue(message="Passwords don't match")
     private boolean isValid() {
         return password.equals(passwordConfirm);
@@ -74,14 +84,6 @@ public class UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public String getPassword() {

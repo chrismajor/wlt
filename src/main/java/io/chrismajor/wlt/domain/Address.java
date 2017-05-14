@@ -3,24 +3,33 @@ package io.chrismajor.wlt.domain;
 import javax.persistence.*;
 
 /**
- * Created by Christo on 14/05/2017.
+ * Entity bean for an address
  */
 @Entity
 public class Address {
+
+    /** primary key */
     private Long id;
 
+    /** first line of the address */
     private String addressLine1;
 
+    /** second line of the address */
     private String addressLine2;
 
+    /** town or city */
     private String town;
 
+    /** county or state */
     private String county;
 
+    /** country */
     private String country;
 
+    /** post / zip code */
     private String postCode;
 
+    /** person details */
     private Person person;
 
     @Id

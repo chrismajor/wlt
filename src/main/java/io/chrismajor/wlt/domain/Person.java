@@ -4,21 +4,27 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Christo on 14/05/2017.
+ * Entity class to describe a person
  */
 @Entity
 public class Person {
 
+    /** primary key */
     private Long id;
 
+    /** the first name */
     private String forename;
 
+    /** the last name */
     private String surname;
 
+    /** date of birth */
     private Timestamp dob;
 
+    /** the person's user account (if applicable) */
     private User user;
 
+    /** the person's address */
     private Address address;
 
     @Id

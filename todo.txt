@@ -1,11 +1,10 @@
 TODO Sunday
-	logout
-	product: created user etc db fields
+    double check login validation is accurate...
     fix list controller unit tests
     security controller unit tests
     security service unit tests
     finish data mapping unit tests
-    double check login validation is accurate...
+	product: created user etc db fields
 
 TODO next
     proper templating with thymeleaf
@@ -15,24 +14,14 @@ TODO next
 TODO tidying up
 	info / debug level logging
 	ensure HTTPS is enabled
-    make exception structure better
+
+TODO read up on
 	check against 12 factor app
+	how any frameworks and patterns (like MVC, DI, ORM or JDBC and unit tests) have been used to build the website
 
 nice 2 have
-    RememberMe auth
-	OWASP ESAPI for input validation etc
-    UI: stick "ref" in the session instead hidden in the form
-    fine tune logging
-    AWS
     gradle wrapper
+    RememberMe auth
+    UI: stick "ref" in the session instead hidden in the form
+    AWS
 	cloud mysql
-
-Tables
-	user
-	user-name
-	name
-	security (e.g. passwords and login stuff)
-	person
-	address
-	product
-	productlist?

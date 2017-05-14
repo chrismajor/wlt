@@ -4,20 +4,26 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Created by Christo on 13/05/2017.
+ * Entity bean to describe a user
  */
 @Entity
 public class User {
+    /** primary key */
     private Long id;
 
+    /** the user's email address / username */
     private String username;
 
+    /** whether the user is enabled */
     private boolean enabled;
 
+    /** user's encrypted password */
     private String password;
 
+    /** user's roles */
     private Set<Role> roles;
 
+    /** users personal details */
     private Person person;
 
     @Id

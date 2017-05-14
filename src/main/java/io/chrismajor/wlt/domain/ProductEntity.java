@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name = "product")
 public class ProductEntity {
 
-    /** private key for the product */
+    /** primary key for the product */
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
