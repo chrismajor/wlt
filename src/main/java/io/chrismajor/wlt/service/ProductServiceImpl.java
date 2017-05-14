@@ -25,6 +25,8 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService{
 
+    // TODO: @Transactional annotations
+
     @Autowired
     private ProductRepository repository;
 
