@@ -19,6 +19,8 @@ public class Person {
 
     private User user;
 
+    private Address address;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -60,5 +62,15 @@ public class Person {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id")
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

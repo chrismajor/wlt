@@ -1,9 +1,7 @@
 TODO Sunday
-    user details: UI / DB bean separation
-    full user detail capture (address DOB name etc)
-    user reg validation
 	DB scripts: provisioning an initial admin user
     security unit tests
+    double check login validation is accurate...
 
 TODO next
     proper templating with thymeleaf

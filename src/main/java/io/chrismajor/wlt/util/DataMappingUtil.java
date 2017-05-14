@@ -1,5 +1,6 @@
 package io.chrismajor.wlt.util;
 
+import io.chrismajor.wlt.domain.Address;
 import io.chrismajor.wlt.domain.Person;
 import io.chrismajor.wlt.domain.ProductEntity;
 import io.chrismajor.wlt.domain.User;
@@ -16,6 +17,8 @@ import java.util.UUID;
  *
  * Given the simplicity of the app at the moment, this class will be sufficient.
  * If the app were to scale out at all, implement a data mapping framework like MapStruct
+ *
+ * TODO: throw new exception if null input?
  */
 public class DataMappingUtil {
     public static Product mapNewProduct(ProductEntity productEntity) {
@@ -61,8 +64,6 @@ public class DataMappingUtil {
         dest.setRef(src.getRef());
     }
 
-    // TODO: user DB to UI
-
     public static User mapNewUser(UserDetails userDetails) {
         User user = new User();
 
@@ -70,13 +71,20 @@ public class DataMappingUtil {
             user.setUsername(userDetails.getUsername());
             user.setPassword(userDetails.getPassword());
 
+            Address address = new Address();
+            address.setAddressLine1(userDetails.getAddressLine1());
+            address.setAddressLine2(userDetails.getAddressLine2());
+            address.setTown(userDetails.getTown());
+            address.setCounty(userDetails.getCounty());
+            address.setCountry(userDetails.getCountry());
+            address.setPostCode(userDetails.getPostcode());
+
             Person person = new Person();
             person.setForename(userDetails.getForename());
             person.setSurname(userDetails.getSurname());
             person.setDob(new Timestamp(userDetails.getDob().getTime()));
+            person.setAddress(address);
             user.setPerson(person);
-
-            // TODO: address details
         }
 
         return user;

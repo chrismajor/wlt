@@ -1,21 +1,20 @@
 package io.chrismajor.wlt.ui.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Temporal;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
-
-import static javax.persistence.TemporalType.*;
 
 /**
  * UI bean to describe a user's details
  */
 public class UserDetails {
-    // TODO: email validation
     @NotNull(message = "Please enter an email address")
     @Size(min = 1, max = 255, message = "Please enter an email address")
+    @Email(message = "Please enter a valid email address")
     private String username;
 
     private boolean enabled;
@@ -26,6 +25,7 @@ public class UserDetails {
 
     @NotNull(message = "Please confirm your password")
     @Size(min = 1, max = 255, message = "Please confirm your password")
+    // TODO: passwords match?
     private String passwordConfirm;
 
     @NotNull(message = "Please enter your forename")
@@ -37,21 +37,36 @@ public class UserDetails {
     private String surname;
 
     @NotNull(message = "Please enter your date of birth")
-    @Temporal(DATE)
     @DateTimeFormat(pattern="dd/MM/YYYY")
     private Date dob;
 
+    @NotNull(message = "Please enter the first line of your address")
+    @Size(min = 1, max = 255, message = "Please enter the first line of your address")
     private String addressLine1;
 
+    @Size(max = 255, message = "That's too much address")
     private String addressLine2;
 
+    @NotNull(message = "Please enter your town / city")
+    @Size(min = 1, max = 255, message = "Please enter your town / city")
     private String town;
 
+    @NotNull(message = "Please enter your county")
+    @Size(min = 1, max = 255, message = "Please enter your county")
     private String county;
 
+    @NotNull(message = "Please enter your country")
+    @Size(min = 1, max = 255, message = "Please enter your country")
     private String country;
 
+    @NotNull(message = "Please enter your postcode")
+    @Size(min = 1, max = 15, message = "Please enter your postcode")
     private String postcode;
+
+    @AssertTrue(message="Passwords don't match")
+    private boolean isValid() {
+        return password.equals(passwordConfirm);
+    }
 
     public String getUsername() {
         return username;

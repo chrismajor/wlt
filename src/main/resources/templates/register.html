@@ -7,6 +7,9 @@
 <body>
 <h1 id="title">Register</h1>
 <form action="#" th:action="@{/register}" th:object="${userdetails}" method="post">
+    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+    </div>
     <table>
         <tr>
             <td>Email address:</td>
@@ -29,6 +32,36 @@
             <td th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">Date Of Birth Error</td>
         </tr>
         <tr>
+            <td>Address line 1:</td>
+            <td><input type="text" th:field="*{addressLine1}" /></td>
+            <td th:if="${#fields.hasErrors('addressLine1')}" th:errors="*{addressLine1}">Address line 1 Error</td>
+        </tr>
+        <tr>
+            <td>Address line 2 (optional):</td>
+            <td><input type="text" th:field="*{addressLine2}" /></td>
+            <td th:if="${#fields.hasErrors('addressLine2')}" th:errors="*{addressLine2}">Address line 2 Error</td>
+        </tr>
+        <tr>
+            <td>Town / city:</td>
+            <td><input type="text" th:field="*{town}" /></td>
+            <td th:if="${#fields.hasErrors('town')}" th:errors="*{town}">Town Error</td>
+        </tr>
+        <tr>
+            <td>County:</td>
+            <td><input type="text" th:field="*{county}" /></td>
+            <td th:if="${#fields.hasErrors('county')}" th:errors="*{county}">County Error</td>
+        </tr>
+        <tr>
+            <td>Country:</td>
+            <td><input type="text" th:field="*{country}" /></td>
+            <td th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</td>
+        </tr>
+        <tr>
+            <td>Postcode / zip code:</td>
+            <td><input type="text" th:field="*{postcode}" /></td>
+            <td th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}">Postcode Error</td>
+        </tr>
+        <tr>
             <td>Password:</td>
             <td><input type="password" th:field="*{password}"/></td>
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Description Error</td>
@@ -36,7 +69,10 @@
         <tr>
             <td>Confirm password:</td>
             <td><input type="password" th:field="*{passwordConfirm}"/></td>
-            <td th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Password confirm error</td>
+            <td>
+                <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Password confirm error</span>
+                <span th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Validation Error</span>
+            </td>
         </tr>
         <tr>
             <td>

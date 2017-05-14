@@ -2,23 +2,23 @@
 CREATE SCHEMA IF NOT EXISTS wlt;
 
 -- create tables
---CREATE TABLE IF NOT EXISTS wlt.address (
---    id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the address',
---    address_line_1 VARCHAR(255) NOT NULL,
---    address_line_2 VARCHAR(255) NOT NULL,
---    town VARCHAR(255) NOT NULL,
---    county VARCHAR(255) NOT NULL,
---    country VARCHAR(255) NOT NULL,
---    post_code VARCHAR(15) NOT NULL
---);
---
+CREATE TABLE IF NOT EXISTS wlt.address (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the address',
+    address_line_1 VARCHAR(255) NOT NULL,
+    address_line_2 VARCHAR(255) NOT NULL,
+    town VARCHAR(255) NOT NULL,
+    county VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    post_code VARCHAR(15) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS wlt.person (
     id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the person',
     forename VARCHAR(255) NOT NULL,
     surname VARCHAR(255) NOT NULL,
-    dob DATETIME NOT NULL /*  ,
+    dob DATETIME NOT NULL   ,
     address_id INTEGER NOT NULL,
-    FOREIGN KEY (address_id) REFERENCES wlt.address(id) */
+    FOREIGN KEY (address_id) REFERENCES wlt.address(id)
 );
 
 CREATE TABLE IF NOT EXISTS wlt.user (
@@ -44,15 +44,13 @@ CREATE TABLE IF NOT EXISTS wlt.user_role (
     FOREIGN KEY (role_id) REFERENCES wlt.role(id)
 );
 
+-- add in the roles we currently allow
 INSERT INTO wlt.role (name) VALUES ('ROLE_USER');
 INSERT INTO wlt.role (name) VALUES ('ROLE_ADMIN');
 
-INSERT INTO wlt.user (username, enabled, password) VALUES ('user', true, 'password');
-INSERT INTO wlt.user_role (role, user_id) VALUES ('ROLE_USER', LAST_INSERT_ID());
-
 
 -- add in an initial admin user
--- TODO: insert into user...
+-- TODO: insert into user / person / address
 
 CREATE TABLE IF NOT EXISTS wlt.product (
     id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the product',
