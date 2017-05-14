@@ -1,6 +1,7 @@
 package io.chrismajor.wlt.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Entity bean for an address
@@ -99,5 +100,39 @@ public class Address {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(id, address.id) &&
+                Objects.equals(addressLine1, address.addressLine1) &&
+                Objects.equals(addressLine2, address.addressLine2) &&
+                Objects.equals(town, address.town) &&
+                Objects.equals(county, address.county) &&
+                Objects.equals(country, address.country) &&
+                Objects.equals(postCode, address.postCode) &&
+                Objects.equals(person, address.person);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, addressLine1, addressLine2, town, county, country, postCode, person);
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", town='" + town + '\'' +
+                ", county='" + county + '\'' +
+                ", country='" + country + '\'' +
+                ", postCode='" + postCode + '\'' +
+                ", person=" + person +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package io.chrismajor.wlt.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * Entity class to describe a person
@@ -78,5 +79,35 @@ public class Person {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id) &&
+                Objects.equals(forename, person.forename) &&
+                Objects.equals(surname, person.surname) &&
+                Objects.equals(dob, person.dob) &&
+                Objects.equals(user, person.user) &&
+                Objects.equals(address, person.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, forename, surname, dob, user, address);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", forename='" + forename + '\'' +
+                ", surname='" + surname + '\'' +
+                ", dob=" + dob +
+                ", user=" + user +
+                ", address=" + address +
+                '}';
     }
 }

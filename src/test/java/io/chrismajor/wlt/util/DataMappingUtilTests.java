@@ -1,13 +1,19 @@
 package io.chrismajor.wlt.util;
 
+import io.chrismajor.wlt.domain.Address;
+import io.chrismajor.wlt.domain.Person;
 import io.chrismajor.wlt.domain.ProductEntity;
+import io.chrismajor.wlt.domain.User;
 import io.chrismajor.wlt.ui.model.Product;
+import io.chrismajor.wlt.ui.model.UserDetails;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Unit tests for DataMappingUtil
@@ -203,5 +209,45 @@ public class DataMappingUtilTests {
         ProductEntity originalEntity = new ProductEntity();
         Product testProduct = new Product();
         Product mappedProduct = DataMappingUtil.mapNewProduct(originalEntity);
-        Assert.assertEquals(mappedProduct, testProduct);    }
+        Assert.assertEquals(mappedProduct, testProduct);
+    }
+
+    @Test
+    public void mapUserDetailsToUserTest() {
+        UserDetails userDetails = new UserDetails();
+        userDetails.setUsername("user@google.com");
+        userDetails.setPassword("supersecurepassword");
+        userDetails.setPasswordConfirm("supersecurepassword");
+        userDetails.setForename("Ralph");
+        userDetails.setSurname("Smith");
+        userDetails.setDob(new Date(84,5,13));
+        userDetails.setAddressLine1("1 The Street");
+        userDetails.setAddressLine2("");
+        userDetails.setTown("Hull");
+        userDetails.setCounty("Hullshire");
+        userDetails.setCountry("UK");
+        userDetails.setPostcode("HH6 6UU");
+
+        Address testAddress = new Address();
+        testAddress.setAddressLine1("1 The Street");
+        testAddress.setAddressLine2("");
+        testAddress.setTown("Hull");
+        testAddress.setCounty("Hullshire");
+        testAddress.setCountry("UK");
+        testAddress.setPostCode("HH6 6UU");
+
+        Person testPerson = new Person();
+        testPerson.setForename("Ralph");
+        testPerson.setSurname("Smith");
+        testPerson.setDob(new Timestamp(new Date(84,5,13).getTime()));
+        testPerson.setAddress(testAddress);
+
+        User testUser = new User();
+        testUser.setUsername("user@google.com");
+        testUser.setPassword("supersecurepassword");
+        testUser.setPerson(testPerson);
+
+        User mappedUser = DataMappingUtil.mapNewUser(userDetails);
+        Assert.assertEquals(testUser, mappedUser);
+    }
 }

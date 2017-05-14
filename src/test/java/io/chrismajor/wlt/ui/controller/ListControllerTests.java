@@ -139,7 +139,7 @@ auth related tests?
     public void newProductDisplay() throws Exception {
         this.mockMvc.perform(get("/list/product/new"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("list"));
+                .andExpect(view().name("newproduct"));
     }
 
     /** POST /list/product/new */
