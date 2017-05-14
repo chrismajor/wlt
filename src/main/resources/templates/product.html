@@ -6,6 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+    <form action="#" th:action="@{/logout}" method="post">
+        <button type="submit">logout</button>
+    </form>
     <h1 id="title">Product Details</h1>
     <form action="#" th:action="@{/list/product/}" th:object="${product}" method="post">
         <table>
@@ -32,7 +35,6 @@
             </tr>
         </table>
     </form>
-    <!--form th:if="${#authentication.principal.isAdmin()}" action="#" th:action="@{/list/product/delete}" th:object="${product}" method="post"-->
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <form action="#" th:action="@{/list/product/delete}" th:object="${product}" method="post">
             <input type="hidden" th:field="*{ref}"/>

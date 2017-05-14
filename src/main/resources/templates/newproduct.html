@@ -5,6 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+    <form action="#" th:action="@{/logout}" method="post">
+        <button type="submit">logout</button>
+    </form>
     <h1 id="title">Create a new product</h1>
     <form action="#" th:action="@{/list/product/new}" th:object="${product}" method="post">
         <table>

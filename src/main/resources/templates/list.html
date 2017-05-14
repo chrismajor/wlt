@@ -4,6 +4,9 @@
     <title>Product list</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+    <form action="#" th:action="@{/logout}" method="post">
+        <button type="submit">logout</button>
+    </form>
     <body>
         <h1 id="title">Product List</h1>
         <div th:if="${param.created}">
