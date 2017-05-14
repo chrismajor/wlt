@@ -1,7 +1,9 @@
 package io.chrismajor.wlt.util;
 
 import io.chrismajor.wlt.domain.ProductEntity;
+import io.chrismajor.wlt.domain.User;
 import io.chrismajor.wlt.ui.model.Product;
+import io.chrismajor.wlt.ui.model.UserDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,18 @@ public class DataMappingUtil {
 
     // TODO: user DB to UI
 
-    // TODO: user UI to DB
+    public static User mapNewUser(UserDetails userDetails) {
+        User user = new User();
+
+        if (userDetails != null) {
+            // TODO: person details
+            // TODO: address details
+            user.setUsername(userDetails.getUsername());
+            user.setPassword(userDetails.getPassword());
+        }
+
+        return user;
+    }
 
     /**
      * Create a random product ref

@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS wlt.user_role (
     FOREIGN KEY (role_id) REFERENCES wlt.role(id)
 );
 
-INSERT INTO wlt.role (role) VALUES ('ROLE_USER');
-INSERT INTO wlt.role (role) VALUES ('ROLE_ADMIN');
+INSERT INTO wlt.role (name) VALUES ('ROLE_USER');
+INSERT INTO wlt.role (name) VALUES ('ROLE_ADMIN');
 
 INSERT INTO wlt.user (username, enabled, password) VALUES ('user', true, 'password');
 INSERT INTO wlt.user_role (role, user_id) VALUES ('ROLE_USER', LAST_INSERT_ID());

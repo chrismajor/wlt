@@ -1,15 +1,11 @@
-Resources
-	https://spring.io/guides/gs/securing-web/
-
-TODO Friday
-    JDBC users functionality (pick up from Controller onwards) https://hellokoding.com/registration-and-login-example-with-spring-security-spring-boot-spring-data-jpa-hsql-jsp/
+TODO Sunday
+    user details: UI / DB bean separation
+    full user detail capture (address DOB name etc)
+    user reg validation
 	DB scripts: provisioning an initial admin user
     security unit tests
 
 TODO next
-	encrypt passwords
-		salt with timestamp?
-		hash with bcrypt
     proper templating with thymeleaf
         include user related headers (logout etc) http://docs.spring.io/spring-security/site/docs/4.2.2.RELEASE/reference/htmlsingle/#jc-logout
 	bootstrap

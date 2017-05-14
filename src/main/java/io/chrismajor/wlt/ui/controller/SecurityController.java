@@ -3,6 +3,7 @@ package io.chrismajor.wlt.ui.controller;
 import io.chrismajor.wlt.domain.User;
 import io.chrismajor.wlt.service.SecurityService;
 import io.chrismajor.wlt.service.UserService;
+import io.chrismajor.wlt.ui.model.UserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,12 @@ public class SecurityController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
-        // TODO: create UI bean for user details
-        model.addAttribute("userForm", new User());
+        model.addAttribute("userdetails", new UserDetails());
         return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, /*BindingResult bindingResult, */Model model) {
+    public String registration(@ModelAttribute("userForm") UserDetails userForm, /*BindingResult bindingResult, */Model model) {
         /* TODO: implement validation
 
         if (bindingResult.hasErrors()) {
