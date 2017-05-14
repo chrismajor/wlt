@@ -48,10 +48,6 @@ CREATE TABLE IF NOT EXISTS wlt.user_role (
 INSERT INTO wlt.role (name) VALUES ('ROLE_USER');
 INSERT INTO wlt.role (name) VALUES ('ROLE_ADMIN');
 
-
--- add in an initial admin user
--- TODO: insert into user / person / address
-
 CREATE TABLE IF NOT EXISTS wlt.product (
     id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the product',
     name VARCHAR(255) NOT NULL              COMMENT 'Name of the product',
@@ -68,9 +64,6 @@ CREATE TABLE IF NOT EXISTS wlt.product (
 --    FOREIGN KEY (updated_user_id) REFERENCES wlt.user(id),
 --    FOREIGN KEY (deleted_user_id) REFERENCES wlt.user(id)
 ) COMMENT 'Core details for a product';
-
-
-
 
 
 -- create DB user

@@ -1,6 +1,10 @@
 TODO Sunday
-	DB scripts: provisioning an initial admin user
-    security unit tests
+	logout
+	product: created user etc db fields
+    fix list controller unit tests
+    security controller unit tests
+    security service unit tests
+    finish data mapping unit tests
     double check login validation is accurate...
 
 TODO next
