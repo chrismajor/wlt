@@ -1,6 +1,4 @@
 TODO Sunday
-    double check login validation is accurate...
-    security controller unit tests
     security service unit tests
     finish data mapping unit tests
 	product: created user etc db fields

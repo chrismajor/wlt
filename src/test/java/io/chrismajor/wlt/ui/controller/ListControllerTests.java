@@ -105,9 +105,9 @@ auth related tests?
 
         given(this.productService.getProductList()).willReturn(products);
 
-        this.mockMvc.perform(get("/list")).andExpect(status().isOk())
-                .andExpect(xpath("//h1[@id='title']").exists())
-                .andExpect(xpath("//h1[@id='title']").string("Product List"));
+        this.mockMvc.perform(get("/list"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("list"));
     }
 
     /** GET  /list/product */
@@ -123,9 +123,9 @@ auth related tests?
 
         given(this.productService.getProduct(ref)).willReturn(product1);
 
-        this.mockMvc.perform(get("/list/product?ref=abc123")).andExpect(status().isOk())
-                .andExpect(xpath("//h1[@id='title']").exists())
-                .andExpect(xpath("//h1[@id='title']").string("Product Details"));
+        this.mockMvc.perform(get("/list/product?ref=abc123"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("product"));
     }
 
     /** GET  /list/product */
@@ -134,23 +134,12 @@ auth related tests?
         this.mockMvc.perform(get("/list/product")).andExpect(status().is4xxClientError());
     }
 
-    /** GET  /list/product */
-    public void listProduct_invalidParam() throws Exception {
-
-    }
-
-    /** GET  /list/product */
-    public void listProduct_noResultFound() throws Exception {
-
-    }
-
     /** GET  /list/product/new */
     @Test
     public void newProductDisplay() throws Exception {
         this.mockMvc.perform(get("/list/product/new"))
                 .andExpect(status().isOk())
-                .andExpect(xpath("//h1[@id='title']").exists())
-                .andExpect(xpath("//h1[@id='title']").string("Create a new product"));
+                .andExpect(view().name("list"));
     }
 
     /** POST /list/product/new */

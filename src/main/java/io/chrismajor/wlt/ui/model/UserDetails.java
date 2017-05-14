@@ -75,7 +75,7 @@ public class UserDetails {
     /** validation rule to ensure the password matches the password confirmation field */
     @AssertTrue(message="Passwords don't match")
     private boolean isValid() {
-        return password.equals(passwordConfirm);
+        return password != null && password.equals(passwordConfirm);
     }
 
     public String getUsername() {
