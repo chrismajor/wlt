@@ -1,13 +1,13 @@
 package io.chrismajor.wlt.ui.controller;
 
-import io.chrismajor.wlt.exception.ProductNotFoundException;
-import io.chrismajor.wlt.exception.ServiceException;
+import io.chrismajor.wlt.exception.*;
 import io.chrismajor.wlt.service.ProductService;
 import io.chrismajor.wlt.ui.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,7 +47,7 @@ public class ListController {
         }
         catch (ServiceException e) {
             log.error("Service error occurred when trying to get a product's details", e);
-            return "error/500";
+            throw new ItBrokeException();
         }
 
         // display the product list
@@ -74,11 +74,11 @@ public class ListController {
         }
         catch (ProductNotFoundException e) {
             log.warn("Product not found when fetching via ref " + ref, e);
-            return "error/404";
+            throw new NotFoundException();
         }
         catch (ServiceException e) {
             log.error("Service error occurred when trying to get a product's details", e);
-            return "error/500";
+            throw new ItBrokeException();
         }
 
         // view the product details
@@ -105,11 +105,11 @@ public class ListController {
         }
         catch (ProductNotFoundException e) {
             log.error("Product not found when trying to update " + product, e);
-            return "error/500";
+            throw new ItBrokeException();
         }
         catch (ServiceException e) {
             log.error("Service error occurred when trying to get a product's details", e);
-            return "error/500";
+            throw new ItBrokeException();
         }
 
         // if the update has been successful, return to the product list
@@ -148,7 +148,7 @@ public class ListController {
         }
         catch (ServiceException e) {
             log.error("Service error occurred when trying to get a product's details", e);
-            return "error/500";
+            throw new ItBrokeException();
         }
 
         // on success, pass user back to the list view
@@ -161,12 +161,10 @@ public class ListController {
      * @return the list view
      */
     @RequestMapping(value = "/list/product/delete", method = RequestMethod.POST)
-    public String productDelete(
-                @RequestParam(value = "ref") String ref,
-                Authentication auth
-            ) {
+    public String productDelete(@RequestParam(value = "ref") String ref) {
 
         // get role names using snazzy functional logic
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<String> authNames = auth.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.toList());
 
         // if user has access to delete a product...
@@ -175,15 +173,15 @@ public class ListController {
                 service.deleteProduct(ref);
             } catch (ProductNotFoundException e) {
                 log.error("Product not found when trying to delete with ref " + ref, e);
-                return "error/500";
+                throw new ItBrokeException();
             } catch (ServiceException e) {
                 log.error("Service error occurred when trying to get a product's details", e);
-                return "error/500";
+                throw new ItBrokeException();
             }
         }
         // else, error page
         else {
-            return "error/403";
+            throw new ForbiddenException();
         }
 
         return "redirect:/list?deleted";

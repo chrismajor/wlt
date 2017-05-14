@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -61,6 +62,8 @@ public class ListControllerTests {
 
 implement tests for product not found exceptions
 implement tests for service exceptions
+
+auth related tests?
 
 .andExpect(view().name("globalerrors/password"));
 
@@ -296,6 +299,7 @@ implement tests for service exceptions
 
     /** POST /list/product/delete */
     @Test
+    @WithMockUser(roles = {"USER", "ADMIN"})
     public void deleteProduct() throws Exception {
         given(this.productService.deleteProduct("aaa")).willReturn(true);
 
@@ -305,6 +309,20 @@ implement tests for service exceptions
                 .param("price", "1000")
                 .param("ref","aaa"))
                 .andExpect(status().is3xxRedirection());
+    }
+
+    /** POST /list/product/delete */
+    @Test
+    @WithMockUser(roles = {"USER"})
+    public void deleteProduct_insufficientPermissions() throws Exception {
+        given(this.productService.deleteProduct("aaa")).willReturn(true);
+
+        this.mockMvc.perform(post("/list/product/delete")
+                .param("name", "Hat")
+                .param("description", "fancy top hat")
+                .param("price", "1000")
+                .param("ref","aaa"))
+                .andExpect(status().is4xxClientError());
     }
 
     /** POST /list/product/delete */
