@@ -1,10 +1,12 @@
 package io.chrismajor.wlt.util;
 
+import io.chrismajor.wlt.domain.Person;
 import io.chrismajor.wlt.domain.ProductEntity;
 import io.chrismajor.wlt.domain.User;
 import io.chrismajor.wlt.ui.model.Product;
 import io.chrismajor.wlt.ui.model.UserDetails;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -65,10 +67,16 @@ public class DataMappingUtil {
         User user = new User();
 
         if (userDetails != null) {
-            // TODO: person details
-            // TODO: address details
             user.setUsername(userDetails.getUsername());
             user.setPassword(userDetails.getPassword());
+
+            Person person = new Person();
+            person.setForename(userDetails.getForename());
+            person.setSurname(userDetails.getSurname());
+            person.setDob(new Timestamp(userDetails.getDob().getTime()));
+            user.setPerson(person);
+
+            // TODO: address details
         }
 
         return user;

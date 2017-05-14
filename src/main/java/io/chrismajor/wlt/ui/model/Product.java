@@ -12,16 +12,14 @@ import java.util.Objects;
  */
 public class Product {
 
-    // TODO: max field sizes in line with DB
-
     /** name of the product */
     @NotNull(message = "Please enter a product name")
-    @Size(min = 1, message = "Please enter a product name")
+    @Size(min = 1, max = 255, message = "Please enter a product name")
     private String name;
 
     /** description of the product */
     @NotNull(message = "Please enter a product name")
-    @Size(min = 1, message = "Please enter a description")
+    @Size(min = 1, max = 255, message = "Please enter a description")
     private String description;
 
     /** price of the product */
@@ -31,7 +29,7 @@ public class Product {
 
     /** UI-friendly ID for the product */
     @NotNull
-    @Size(min = 1)
+    @Size(min = 1, max = 255)
     private String ref;
 
     public String getName() {

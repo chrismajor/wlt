@@ -12,22 +12,22 @@ CREATE SCHEMA IF NOT EXISTS wlt;
 --    post_code VARCHAR(15) NOT NULL
 --);
 --
---CREATE TABLE IF NOT EXISTS wlt.person (
---    id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the person',
---    forename VARCHAR(255) NOT NULL,
---    surname VARCHAR(255) NOT NULL,
---    dob DATETIME NOT NULL,
---    address_id INTEGER NOT NULL,
---    FOREIGN KEY (address_id) REFERENCES wlt.address(id)
---);
+CREATE TABLE IF NOT EXISTS wlt.person (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the person',
+    forename VARCHAR(255) NOT NULL,
+    surname VARCHAR(255) NOT NULL,
+    dob DATETIME NOT NULL /*  ,
+    address_id INTEGER NOT NULL,
+    FOREIGN KEY (address_id) REFERENCES wlt.address(id) */
+);
 
 CREATE TABLE IF NOT EXISTS wlt.user (
     id INTEGER PRIMARY KEY AUTO_INCREMENT   COMMENT 'ID for the user',
     username VARCHAR(255) UNIQUE NOT NULL ,
     enabled boolean NOT NULL DEFAULT FALSE,
-    password VARCHAR(255) NOT NULL -- ,
---    person_id INTEGER NOT NULL,
---    FOREIGN KEY (person_id) REFERENCES wlt.person(id)
+    password VARCHAR(255) NOT NULL,
+    person_id INTEGER NOT NULL,
+    FOREIGN KEY (person_id) REFERENCES wlt.person(id)
 );
 
 CREATE TABLE IF NOT EXISTS wlt.role (

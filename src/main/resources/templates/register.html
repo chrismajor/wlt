@@ -14,6 +14,21 @@
             <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">User name Error</td>
         </tr>
         <tr>
+            <td>Forename:</td>
+            <td><input type="text" th:field="*{forename}" /></td>
+            <td th:if="${#fields.hasErrors('forename')}" th:errors="*{forename}">Forename Error</td>
+        </tr>
+        <tr>
+            <td>Surname:</td>
+            <td><input type="text" th:field="*{surname}" /></td>
+            <td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</td>
+        </tr>
+        <tr>
+            <td>Date of birth:</td>
+            <td><input type="text" th:field="*{dob}" /></td>
+            <td th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">Date Of Birth Error</td>
+        </tr>
+        <tr>
             <td>Password:</td>
             <td><input type="password" th:field="*{password}"/></td>
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Description Error</td>

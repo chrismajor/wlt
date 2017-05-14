@@ -1,23 +1,44 @@
 package io.chrismajor.wlt.ui.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
+
+import static javax.persistence.TemporalType.*;
 
 /**
  * UI bean to describe a user's details
  */
 public class UserDetails {
+    // TODO: email validation
+    @NotNull(message = "Please enter an email address")
+    @Size(min = 1, max = 255, message = "Please enter an email address")
     private String username;
 
     private boolean enabled;
 
+    @NotNull(message = "Please enter a password")
+    @Size(min = 1, max = 255, message = "Please enter a password")
     private String password;
 
+    @NotNull(message = "Please confirm your password")
+    @Size(min = 1, max = 255, message = "Please confirm your password")
     private String passwordConfirm;
 
+    @NotNull(message = "Please enter your forename")
+    @Size(min = 1, max = 255, message = "Please enter your forename")
     private String forename;
 
+    @NotNull(message = "Please enter your surname")
+    @Size(min = 1, max = 255, message = "Please enter your surname")
     private String surname;
 
+    @NotNull(message = "Please enter your date of birth")
+    @Temporal(DATE)
+    @DateTimeFormat(pattern="dd/MM/YYYY")
     private Date dob;
 
     private String addressLine1;
