@@ -173,4 +173,20 @@ public class UserDetails {
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
+
+    @Override
+    public String toString() {
+        return "UserDetails{" +
+                "username='" + username + '\'' +
+                ", forename='" + forename + '\'' +
+                ", surname='" + surname + '\'' +
+                ", dob=" + dob +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", town='" + town + '\'' +
+                ", county='" + county + '\'' +
+                ", country='" + country + '\'' +
+                ", postcode='" + postcode + '\'' +
+                '}';
+    }
 }

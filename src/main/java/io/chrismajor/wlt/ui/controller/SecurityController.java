@@ -90,6 +90,7 @@ public class SecurityController {
 
         // log the user in
         securityService.autologin(userDetails.getUsername(), userDetails.getPasswordConfirm());
+        log.info("user successfully registered! " + userDetails);
 
         // direct the user to the list view
         return "redirect:/list";

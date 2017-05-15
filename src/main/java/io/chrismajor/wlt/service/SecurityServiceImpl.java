@@ -41,6 +41,8 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public void autologin(String username, String password) {
+        log.debug("starting autologin for user :: " + username);
+
         // grab the user's details & authenticate their password auth token
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken token =
@@ -50,6 +52,7 @@ public class SecurityServiceImpl implements SecurityService {
         // if it's good, add it to the security context
         if (token.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(token);
+            log.debug("auto login successful :: " + userDetails);
         }
     }
 }

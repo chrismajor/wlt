@@ -106,7 +106,6 @@ public class Person {
                 ", forename='" + forename + '\'' +
                 ", surname='" + surname + '\'' +
                 ", dob=" + dob +
-                ", user=" + user +
                 ", address=" + address +
                 '}';
     }

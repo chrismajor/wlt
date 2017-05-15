@@ -6,6 +6,8 @@ import io.chrismajor.wlt.repository.RoleRepository;
 import io.chrismajor.wlt.repository.UserRepository;
 import io.chrismajor.wlt.ui.model.UserDetails;
 import io.chrismajor.wlt.util.DataMappingUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,12 +31,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     /**
      * Persist a given user's details to the database
      * @param userDetails the user's details
      */
     @Override
     public void save(UserDetails userDetails) {
+        log.debug("saving user :: " + userDetails);
+
         User user = DataMappingUtil.mapNewUser(userDetails);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
@@ -45,5 +51,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
 
         userRepository.save(user);
+        log.debug("user saved successfully :: " + user);
     }
 }

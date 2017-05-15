@@ -69,6 +69,8 @@ public class ProductServiceImpl implements ProductService{
      * @throws ServiceException exception thrown if IO issue is found
      */
     public void updateProduct(Product product) throws ProductNotFoundException, ServiceException {
+        log.debug("updating product :: " + product);
+
         if (product == null) {
             log.warn("null product passed to updateProduct service method");
             throw new ProductNotFoundException("null product passed to updateProduct service method");
@@ -80,6 +82,8 @@ public class ProductServiceImpl implements ProductService{
         // map the updated details to this product, & persist
         DataMappingUtil.mapProductToProductEntity(product, productEntity);
         repository.save(productEntity);
+
+        log.debug("udpated product successfully :: " + productEntity);
     }
 
 
@@ -92,6 +96,8 @@ public class ProductServiceImpl implements ProductService{
      * @throws ServiceException exception thrown in case of IO issues
      */
     public boolean createProduct(Product product) throws ServiceException {
+        log.debug("creating product :: " + product);
+
         try {
             // create a new ref for the product
             String newRef;
@@ -112,6 +118,7 @@ public class ProductServiceImpl implements ProductService{
             entity.setCreatedDatetime(new Timestamp(new Date().getTime()));
 
             repository.save(entity);
+            log.info("created product successfully :: " + entity);
             return true;
         }
         catch (IOException e) {
@@ -131,9 +138,11 @@ public class ProductServiceImpl implements ProductService{
      * @throws ServiceException exception thrown if IO issue is found
      */
     public boolean deleteProduct(String ref) throws ProductNotFoundException, ServiceException {
+        log.debug("deleting product with ref :: " + ref);
         ProductEntity entity = this.getProductEntity(ref);
         entity.setDeletedDatetime(new Timestamp(new Date().getTime()));
         repository.save(entity);
+        log.info("deleted product successfully :: " + entity);
         return true;
     }
 

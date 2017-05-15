@@ -1,13 +1,10 @@
 
-TODO tidying up
-	info / debug level logging
-	ensure HTTPS is enabled
 
 nice to have
+    logging NDC / MDC
     proper templating with thymeleaf
         include user related headers (logout etc) http://docs.spring.io/spring-security/site/docs/4.2.2.RELEASE/reference/htmlsingle/#jc-logout
 	bootstrap
-nice 2 have
     gradle wrapper
     AWS
 	cloud mysql

@@ -131,8 +131,7 @@ public class Address {
                 ", town='" + town + '\'' +
                 ", county='" + county + '\'' +
                 ", country='" + country + '\'' +
-                ", postCode='" + postCode + '\'' +
-                ", person=" + person +
+                ", postCode='" + postCode +
                 '}';
     }
 }

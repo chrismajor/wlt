@@ -1,12 +1,12 @@
 package io.chrismajor.wlt.service;
 
-import io.chrismajor.wlt.domain.User;
 import io.chrismajor.wlt.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,7 +36,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        log.debug("loading user by username :: " + username);
+        io.chrismajor.wlt.domain.User user = userRepository.findByUsername(username);
 
         if (user == null) {
             log.warn("unable to find user with username " + username);
@@ -53,6 +54,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .collect(Collectors.toSet());
 
         // return the user details
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        User userDetails = new User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        log.debug("loaded user by username :: " + user);
+        return userDetails;
     }
 }
