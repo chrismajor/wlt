@@ -25,7 +25,7 @@ public class SecurityServiceImpl implements SecurityService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * Find the username for the logged in user
+     * Find the username for the logged in user - for RememberMe functionality
      * @return the username
      */
     @Override

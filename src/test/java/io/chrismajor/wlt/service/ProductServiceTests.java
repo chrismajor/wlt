@@ -130,6 +130,19 @@ public class ProductServiceTests {
     }
 
     @Test
+    public void testGetProduct_emptyProductRef() throws Exception {
+        try {
+            productService.getProduct("");
+
+            // if we get this far, fail - should have thrown an exception
+            Assert.fail();
+        }
+        catch (ProductNotFoundException e) {
+            Assert.assertNotNull(e);
+        }
+    }
+
+    @Test
     public void testGetProduct_IOException() throws Exception {
         String ref = "abc123";
         given(this.repository.getProductByRef(ref)).willThrow(new IOException());
@@ -382,7 +395,5 @@ public class ProductServiceTests {
         catch (ServiceException e) {
             Assert.assertNotNull(e);
         }
-
-
     }
 }

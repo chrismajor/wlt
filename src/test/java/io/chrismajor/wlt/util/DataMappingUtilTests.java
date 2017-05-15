@@ -214,6 +214,7 @@ public class DataMappingUtilTests {
 
     @Test
     public void mapUserDetailsToUserTest() {
+        // Details to map from
         UserDetails userDetails = new UserDetails();
         userDetails.setUsername("user@google.com");
         userDetails.setPassword("supersecurepassword");
@@ -228,6 +229,7 @@ public class DataMappingUtilTests {
         userDetails.setCountry("UK");
         userDetails.setPostcode("HH6 6UU");
 
+        // Details to compare them to
         Address testAddress = new Address();
         testAddress.setAddressLine1("1 The Street");
         testAddress.setAddressLine2("");
@@ -247,6 +249,7 @@ public class DataMappingUtilTests {
         testUser.setPassword("supersecurepassword");
         testUser.setPerson(testPerson);
 
+        // Do the mapping and comparison
         User mappedUser = DataMappingUtil.mapNewUser(userDetails);
         Assert.assertEquals(testUser, mappedUser);
     }

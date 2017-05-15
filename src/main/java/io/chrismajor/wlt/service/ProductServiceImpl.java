@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService{
      * */
     public List<Product> getProductList() throws ServiceException {
         try {
-            // TODO: lambda function
+            // TODO:  rewrite the below data mapping method as a lambda function
             List<ProductEntity> entities = repository.getProducts();
             return DataMappingUtil.mapNewProductList(entities);
         }
