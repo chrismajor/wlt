@@ -25,8 +25,6 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService{
 
-    // TODO: @Transactional annotations
-
     @Autowired
     private ProductRepository repository;
 
@@ -40,7 +38,6 @@ public class ProductServiceImpl implements ProductService{
      * */
     public List<Product> getProductList() throws ServiceException {
         try {
-            // TODO:  rewrite the below data mapping method as a lambda function
             List<ProductEntity> entities = repository.getProducts();
             return DataMappingUtil.mapNewProductList(entities);
         }
@@ -113,7 +110,6 @@ public class ProductServiceImpl implements ProductService{
             ProductEntity entity = DataMappingUtil.mapNewProductEntity(product);
             entity.setRef(newRef);
             entity.setCreatedDatetime(new Timestamp(new Date().getTime()));
-            // TODO: created user
 
             repository.save(entity);
             return true;
@@ -137,7 +133,6 @@ public class ProductServiceImpl implements ProductService{
     public boolean deleteProduct(String ref) throws ProductNotFoundException, ServiceException {
         ProductEntity entity = this.getProductEntity(ref);
         entity.setDeletedDatetime(new Timestamp(new Date().getTime()));
-        // TODO: deleted user
         repository.save(entity);
         return true;
     }

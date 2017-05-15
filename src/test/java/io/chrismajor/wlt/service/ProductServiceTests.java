@@ -51,7 +51,6 @@ public class ProductServiceTests {
         testEntity1.setPrice(new BigDecimal(500));
         testEntity1.setRef("abc123");
         testEntity1.setCreatedDatetime(new Timestamp(1493593200000L));
-        testEntity1.setCreatedUserId(1L);
 
         ProductEntity testEntity2 = new ProductEntity();
         testEntity2.setName("Boat");
@@ -59,7 +58,6 @@ public class ProductServiceTests {
         testEntity2.setPrice(new BigDecimal(4500));
         testEntity2.setRef("def456");
         testEntity2.setCreatedDatetime(new Timestamp(1493593200000L));
-        testEntity2.setCreatedUserId(1L);
 
         List<ProductEntity> productEntities = new ArrayList<>();
         productEntities.add(testEntity1);
@@ -102,7 +100,6 @@ public class ProductServiceTests {
         testEntity.setPrice(new BigDecimal(500));
         testEntity.setRef(ref);
         testEntity.setCreatedDatetime(new Timestamp(1493593200000L));
-        testEntity.setCreatedUserId(1L);
 
         given(this.repository.getProductByRef(ref)).willReturn(testEntity);
 

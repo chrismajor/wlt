@@ -12,3 +12,16 @@ They will be looking for:
 • how the code is modularised
 • how any frameworks and patterns (like MVC, DI, ORM or JDBC and unit tests) have been used to build the website
 • the build tools that were used
+
+
+What was good?
+- tiered beans
+- tiered structure is flexible
+- XSS / CSRF protection
+- hashed and salted passwords
+- no DB keys exposed
+
+What is left to do?
+- specific spring config
+- test coverage...
+- audit details on product tables

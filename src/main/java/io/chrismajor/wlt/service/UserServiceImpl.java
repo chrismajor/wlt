@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,15 +46,4 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
     }
-
-// TODO: remove if unused
-//    /**
-//     * Find a user's details by their username
-//     * @param username the username
-//     * @return
-//     */
-//    @Override
-//    public User findByUsername(String username) {
-//        return userRepository.findByUsername(username);
-//    }
 }

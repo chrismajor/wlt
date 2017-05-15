@@ -57,19 +57,6 @@ public class ListControllerTests {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
-
-/* TODO:::
-
-implement tests for product not found exceptions
-implement tests for service exceptions
-
-auth related tests?
-
-.andExpect(view().name("globalerrors/password"));
-
-*/
-
-
     @Test
     public void listProducts_404() throws Exception {
         this.mockMvc.perform(get("/list/nope")).andExpect(status().is4xxClientError());

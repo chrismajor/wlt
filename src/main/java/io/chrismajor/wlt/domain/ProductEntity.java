@@ -32,20 +32,8 @@ public class ProductEntity {
     /** Date & time the record was created */
     private Timestamp createdDatetime;
 
-    /** ID of the user that created the product */
-    private Long createdUserId;
-
-    /** Date & time the record was updated */
-    private Timestamp updatedDatetime;
-
-    /** ID of the user that updated the product */
-    private Long updatedUserId;
-
     /** Date & time the record was deleted. If null, hasn't been deleted yet! */
     private Timestamp deletedDatetime;
-
-    /** ID of the user that updated the product */
-    private Long deletedUserId;
 
     public Long getId() {
         return id;
@@ -95,44 +83,12 @@ public class ProductEntity {
         this.createdDatetime = createdDatetime;
     }
 
-    public Long getCreatedUserId() {
-        return createdUserId;
-    }
-
-    public void setCreatedUserId(Long createdUserId) {
-        this.createdUserId = createdUserId;
-    }
-
-    public Timestamp getUpdatedDatetime() {
-        return updatedDatetime;
-    }
-
-    public void setUpdatedDatetime(Timestamp updatedDatetime) {
-        this.updatedDatetime = updatedDatetime;
-    }
-
-    public Long getUpdatedUserId() {
-        return updatedUserId;
-    }
-
-    public void setUpdatedUserId(Long updatedUserId) {
-        this.updatedUserId = updatedUserId;
-    }
-
     public Timestamp getDeletedDatetime() {
         return deletedDatetime;
     }
 
     public void setDeletedDatetime(Timestamp deletedDatetime) {
         this.deletedDatetime = deletedDatetime;
-    }
-
-    public Long getDeletedUserId() {
-        return deletedUserId;
-    }
-
-    public void setDeletedUserId(Long deletedUserId) {
-        this.deletedUserId = deletedUserId;
     }
 
     @Override
@@ -146,15 +102,11 @@ public class ProductEntity {
                 Objects.equals(price, that.price) &&
                 Objects.equals(ref, that.ref) &&
                 Objects.equals(createdDatetime, that.createdDatetime) &&
-                Objects.equals(createdUserId, that.createdUserId) &&
-                Objects.equals(updatedDatetime, that.updatedDatetime) &&
-                Objects.equals(updatedUserId, that.updatedUserId) &&
-                Objects.equals(deletedDatetime, that.deletedDatetime) &&
-                Objects.equals(deletedUserId, that.deletedUserId);
+                Objects.equals(deletedDatetime, that.deletedDatetime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, price, ref, createdDatetime, createdUserId, updatedDatetime, updatedUserId, deletedDatetime, deletedUserId);
+        return Objects.hash(id, name, description, price, ref, createdDatetime, deletedDatetime);
     }
 }
