@@ -85,6 +85,8 @@ public class SecurityController {
             return "register";
         }
 
+        log.debug("registering user :: " + userDetails);
+
         // save the user's details
         userService.save(userDetails);
 

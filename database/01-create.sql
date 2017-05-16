@@ -61,6 +61,7 @@ INSERT INTO wlt.role (name) VALUES ('ROLE_ADMIN');
 
 
 -- create DB user
+-- change the password (and host?) as necessary per environment
 CREATE USER 'wltapp'@'localhost' IDENTIFIED BY 'r4ttl3sn4k3s???';
 GRANT SELECT ON wlt.* TO 'wltapp'@'localhost';
 GRANT INSERT ON wlt.* TO 'wltapp'@'localhost';

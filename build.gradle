@@ -10,9 +10,9 @@ buildscript {
 
 // apply plugins
 apply plugin: 'java'
+apply plugin: 'jacoco'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'jacoco'
 
 // fundamental build settings
 defaultTasks 'build'
@@ -22,7 +22,7 @@ targetCompatibility = 1.8
 // configure jar settings
 jar {
     baseName = 'wlt-demo'
-    version =  '0.1.0'
+    version =  '1.0'
 }
 
 // define Maven repo(s)
@@ -30,17 +30,16 @@ repositories {
     mavenCentral()
 }
 
+// define dependencies
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-thymeleaf"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "mysql:mysql-connector-java:5.1.6"
     compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4"
-    // bcrypt
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile "org.springframework.security:spring-security-test"
 }
-// define dependencies
 
 // configure code coverage reports
 jacocoTestReport {
