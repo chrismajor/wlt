@@ -1,16 +1,13 @@
-
+still to do
+    logging: file rolling, NDC / MDC
+    finalise service-level unit tests
+    improve error handling in DataMappingUtil
+    improve markup (form labels, accessibility)
+    @Transaction vs unit tests
 
 nice to have
-    logging NDC / MDC
     proper templating with thymeleaf
         include user related headers (logout etc) http://docs.spring.io/spring-security/site/docs/4.2.2.RELEASE/reference/htmlsingle/#jc-logout
 	bootstrap
     gradle wrapper
     AWS
-	cloud mysql
-
-TODO read up on
-	check against 12 factor app
-	how any frameworks and patterns (like MVC, DI, ORM or JDBC and unit tests) have been used to build the website
-    how spring security utilises our interfaces
-
