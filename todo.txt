@@ -1,13 +1,13 @@
 still to do
+    @Transaction vs unit tests
+    tightly define spring dependencies and autoconfig
+    improve error handling in DataMappingUtil
     logging: file rolling, NDC / MDC
     finalise service-level unit tests
-    improve error handling in DataMappingUtil
     improve markup (form labels, accessibility)
-    @Transaction vs unit tests
 
 nice to have
     proper templating with thymeleaf
         include user related headers (logout etc) http://docs.spring.io/spring-security/site/docs/4.2.2.RELEASE/reference/htmlsingle/#jc-logout
 	bootstrap
-    gradle wrapper
     AWS

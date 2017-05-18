@@ -6,22 +6,3 @@
 • Only “Super users” are allowed to delete a product
 • Provide custom error pages for 404, 403 and 500 status codes
 • Use any open source DB like MySQL or PostgreSQL as the back end
-
-They will be looking for:
-• How domain models are defined
-• how the code is modularised
-• how any frameworks and patterns (like MVC, DI, ORM or JDBC and unit tests) have been used to build the website
-• the build tools that were used
-
-
-What was good?
-- tiered beans
-- tiered structure is flexible
-- XSS / CSRF protection
-- hashed and salted passwords
-- no DB keys exposed
-
-What is left to do?
-- specific spring config
-- test coverage...
-- audit details on product tables
